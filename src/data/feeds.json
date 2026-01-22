@@ -1,0 +1,22 @@
+[
+  {
+    "id": "f-1",
+    "channelName": "Eutelsat Feed Main",
+    "frequency": "10992",
+    "polarization": "V",
+    "symbolRate": 7200,
+    "satellite": "Eutelsat 7E",
+    "status": "FTA",
+    "type": "Sports"
+  },
+  {
+    "id": "f-2",
+    "channelName": "CAF Feed",
+    "frequency": "11554",
+    "polarization": "H",
+    "symbolRate": 4800,
+    "satellite": "Eutelsat 10E",
+    "status": "Encrypted",
+    "type": "Sports"
+  }
+]

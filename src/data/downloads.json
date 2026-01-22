@@ -1,0 +1,20 @@
+[
+  {
+    "id": "d-1",
+    "fileName": "Nova_iMac_Update_v2.50.bin",
+    "brand": "Nova",
+    "model": "iMac Pro",
+    "date": "2026-01-10",
+    "size": "150MB",
+    "version": "2.50"
+  },
+  {
+    "id": "d-2",
+    "fileName": "Senator_Captain_Channel_List.db",
+    "brand": "Senator",
+    "model": "Captain",
+    "date": "2026-01-15",
+    "size": "2MB",
+    "version": "Jan 2026"
+  }
+]
