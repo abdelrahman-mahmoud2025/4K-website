@@ -488,14 +488,14 @@ const ProductDetail: React.FC = () => {
             className={`flex-1 min-w-28 md:min-w-37.5 px-4 md:px-8 py-3 md:py-5 font-black text-[10px] md:text-xs uppercase tracking-wider md:tracking-[0.2em] transition-all rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 active:scale-95 ${activeTab === "desc" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
             onClick={() => setActiveTab("desc")}
           >
-            <FileText size={14} className="md:w-[18px] md:h-[18px]" />{" "}
+            <FileText size={14} className="md:w-4.5 md:h-4.5" />{" "}
             {t("description")}
           </button>
           <button
             className={`flex-1 min-w-28 md:min-w-37.5 px-4 md:px-8 py-3 md:py-5 font-black text-[10px] md:text-xs uppercase tracking-wider md:tracking-[0.2em] transition-all rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 active:scale-95 ${activeTab === "specs" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
             onClick={() => setActiveTab("specs")}
           >
-            <Settings size={14} className="md:w-[18px] md:h-[18px]" />{" "}
+            <Settings size={14} className="md:w-4.5 md:h-4.5" />{" "}
             {t("features")} & {t("specs")}
           </button>
         </div>
