@@ -582,11 +582,11 @@ const Branches: React.FC = () => {
                   type="submit"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-5 rounded-2xl flex items-center justify-center gap-3 text-lg font-bold text-white mt-8 transition-all"
+                  className="w-full py-3 px-4 rounded-2xl flex items-center justify-center gap-3 text-lg font-bold text-white mt-8 transition-all"
                   style={{
                     background:
-                      "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
-                    boxShadow: "0 12px 35px rgba(34,197,94,0.35)",
+                      "linear-gradient(135deg, #00CC4E 0%, #00993B 100%)",
+                    boxShadow: "0 12px 35px rgba(52,211,153,0.35)",
                   }}
                 >
                   <Send size={22} />

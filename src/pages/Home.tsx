@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useData } from "../store/DataContext";
 import ProductCard from "../components/ProductCard";
+import { useSEO } from "../hooks/useSEO";
 import {
   ArrowRight,
   Server,
@@ -65,7 +66,9 @@ const OffersBar: React.FC = () => {
               <h3 className="font-bold text-text text-lg leading-tight">
                 {offer.title}
               </h3>
-              <p className="text-subtext text-xs mt-1 line-clamp-1">{offer.desc}</p>
+              <p className="text-subtext text-xs mt-1 line-clamp-1">
+                {offer.desc}
+              </p>
             </div>
             <div className="bg-background p-2.5 rounded-full text-subtext group-hover:bg-primary group-hover:text-black transition-all shadow-sm">
               <ArrowRight size={18} />
@@ -83,6 +86,18 @@ const Home: React.FC = () => {
   const featuredProducts = products
     .filter((p) => p.isOffer || p.rating > 4.5)
     .slice(0, 4);
+
+  // SEO Meta Tags
+  useSEO({
+    title:
+      i18n.language === "ar"
+        ? "الرئيسية - أفضل رسيفرات الستالايت وسيرفرات IPTV في مصر"
+        : "Home - Best Satellite Receivers & IPTV Servers in Egypt",
+    description:
+      i18n.language === "ar"
+        ? "4K Store - فور كيه ستور - زياد شوقي. متجر متخصص في رسيفرات 4K، نوفا، تايجر، سيناتور، ستارسات. سيرفرات Forever، IPTV. أفضل الأسعار في مصر مع ضمان وشحن سريع."
+        : "4K Store - Zyad Shawky. Specialized store for 4K receivers, Nova, Tiger, Senator, Starsat. Forever servers, IPTV. Best prices in Egypt with warranty and fast shipping.",
+  });
 
   if (loading)
     return (
@@ -303,7 +318,9 @@ const Home: React.FC = () => {
                 <h3 className="text-3xl font-black text-text mb-3 tracking-tight">
                   {cat.label}
                 </h3>
-                <p className="text-subtext text-lg mb-8 leading-relaxed opacity-80">{cat.desc}</p>
+                <p className="text-subtext text-lg mb-8 leading-relaxed opacity-80">
+                  {cat.desc}
+                </p>
                 <span className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full border border-primary/20 group-hover:bg-primary group-hover:text-black">
                   {t("view_details")} <ArrowRight size={16} />
                 </span>
@@ -317,7 +334,7 @@ const Home: React.FC = () => {
       <section className="container mx-auto px-4">
         <div className="bg-surface/30 backdrop-blur-sm border border-border rounded-[2.5rem] p-8 md:p-12 mb-10 shadow-lg relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
-             <Star size={200} />
+            <Star size={200} />
           </div>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
             <div>
@@ -337,7 +354,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />

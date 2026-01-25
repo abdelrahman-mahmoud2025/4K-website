@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useData } from "../store/DataContext";
 import { useCompare } from "../store/StoreContext";
+import { useSEO } from "../hooks/useSEO";
 import ProductCard from "../components/ProductCard";
 
 // Helper function to categorize a feature string into a group
@@ -193,6 +194,18 @@ const Shop: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false); // Mobile toggle
   const [showMoreFilters, setShowMoreFilters] = useState(false); // Desktop toggle
   const [sortBy, setSortBy] = useState<string>("featured");
+
+  // SEO Meta Tags
+  useSEO({
+    title:
+      i18n.language === "ar"
+        ? "المتجر - تسوق رسيفرات وسيرفرات الستالايت"
+        : "Shop - Browse Satellite Receivers & Servers",
+    description:
+      i18n.language === "ar"
+        ? "تصفح مجموعتنا الكاملة من رسيفرات الستالايت، سيرفرات IPTV، اكسسوارات، وكابلات. أفضل الأسعار في مصر مع ضمان رسمي."
+        : "Browse our complete collection of satellite receivers, IPTV servers, accessories, and cables. Best prices in Egypt with official warranty.",
+  });
 
   useEffect(() => {
     const cat = searchParams.get("category");

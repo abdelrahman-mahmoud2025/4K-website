@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { useData } from "../store/DataContext";
 import { useTheme } from "../store/ThemeContext";
+import { useSEO } from "../hooks/useSEO";
 import ProductCard from "../components/ProductCard";
 import { Timer, Clock, Flame, Sparkles } from "lucide-react";
 
@@ -82,10 +83,22 @@ const Countdown: React.FC<{ targetDate: string }> = ({ targetDate }) => {
 };
 
 const Offers: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { products, loading } = useData();
   const { isDark } = useTheme();
   const offerProducts = products.filter((p) => p.isOffer);
+
+  // SEO Meta Tags
+  useSEO({
+    title:
+      i18n.language === "ar"
+        ? "العروض والخصومات - أفضل عروض الرسيفرات والسيرفرات"
+        : "Offers & Deals - Best Receiver & Server Discounts",
+    description:
+      i18n.language === "ar"
+        ? "اكتشف أفضل العروض والخصومات على رسيفرات الستالايت وسيرفرات IPTV. عروض محدودة الوقت بأسعار لا تقبل المنافسة."
+        : "Discover the best offers and discounts on satellite receivers and IPTV servers. Limited time deals at unbeatable prices.",
+  });
 
   if (loading) {
     return (
@@ -107,8 +120,8 @@ const Offers: React.FC = () => {
           <div className="absolute -top-10 -right-10 p-10 opacity-5 group-hover:opacity-10 transition-all duration-700 pointer-events-none transform group-hover:rotate-12 group-hover:scale-110">
             <Flame size={320} />
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto"
@@ -142,7 +155,8 @@ const Offers: React.FC = () => {
 
             <p className="mt-8 text-subtext text-lg font-medium flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
-              {offerProducts.length} {t("products_available") || "products available"}
+              {offerProducts.length}{" "}
+              {t("products_available") || "products available"}
             </p>
           </motion.div>
         </div>

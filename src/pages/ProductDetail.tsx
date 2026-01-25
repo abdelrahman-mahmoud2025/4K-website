@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useData } from "../store/DataContext";
 import { useCart, useCompare, useWishlist } from "../store/StoreContext";
+import { useSEO } from "../hooks/useSEO";
 import LazyImage from "../components/LazyImage";
 import ProductCard from "../components/ProductCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -49,6 +50,28 @@ const ProductDetail: React.FC = () => {
   // Auto-slideshow and zoom states
   const [isHovering, setIsHovering] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // SEO for Product Page
+  useSEO(
+    product
+      ? {
+          title: product.name[lang],
+          description: product.description[lang].substring(0, 160),
+          image: product.image,
+          type: "product",
+          product: {
+            name: product.name[lang],
+            price: product.price,
+            currency: "EGP",
+            brand: product.brand,
+            availability: product.inStock ? "InStock" : "OutOfStock",
+            image: product.image,
+            description: product.description[lang],
+            sku: product.id,
+          },
+        }
+      : {},
+  );
 
   // Recently Viewed Logic
   useEffect(() => {
