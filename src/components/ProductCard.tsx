@@ -460,4 +460,4 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);

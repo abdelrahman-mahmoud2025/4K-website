@@ -29,6 +29,17 @@ export default defineConfig(({ mode }) => {
         globals: true,
         environment: 'jsdom',
         setupFiles: './src/setupTests.ts',
+      },
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              vendor: ['react', 'react-dom', 'react-router-dom'],
+              animations: ['framer-motion'],
+              utils: ['fuse.js', 'lucide-react', 'react-hot-toast']
+            }
+          }
+        }
       }
     };
 });

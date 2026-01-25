@@ -2,8 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useCompare, useCart } from "../store/StoreContext";
 import LazyImage from "../components/LazyImage";
-import { X, ShoppingCart, Trash2, Plus } from "lucide-react";
+import { X, ShoppingCart, Trash2, Plus, ArrowLeftRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Compare: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -13,37 +14,57 @@ const Compare: React.FC = () => {
 
   if (compareList.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h2 className="text-2xl font-bold text-text mb-4">
-          {t("compare_empty")}
-        </h2>
-        <Link to="/shop" className="text-primary hover:underline">
-          {t("shop_now")}
-        </Link>
+      <div className="container mx-auto px-4 py-20 text-center min-h-[80vh] flex flex-col items-center justify-center">
+        <div className="bg-surface/50 p-10 rounded-[2.5rem] border border-border border-dashed max-w-md w-full">
+          <ArrowLeftRight size={80} className="mx-auto text-subtext/20 mb-6" />
+          <h2 className="text-2xl font-black text-text mb-4">
+            {t("compare_empty")}
+          </h2>
+          <Link to="/shop" className="inline-flex items-center gap-2 bg-primary text-black font-black py-4 px-8 rounded-2xl hover:bg-white transition-all shadow-xl shadow-primary/20 transform active:scale-95">
+            {t("shop_now")}
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-        <h1 className="text-3xl font-bold text-text">
-          {t("compare_products")}
-        </h1>
-        <div className="flex items-center gap-4">
-          <Link
-            to="/shop"
-            className="flex items-center gap-2 bg-surface text-text px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors border border-border"
-          >
-            <Plus size={18} />
-            {t("add_more_products")}
-          </Link>
-          <button
-            onClick={clearCompare}
-            className="text-red-500 hover:text-red-600 flex items-center gap-2 px-4 py-2"
-          >
-            <Trash2 size={18} /> {t("clear_all")}
-          </button>
+    <div className="container mx-auto px-4 py-12 min-h-screen">
+      {/* Header Frame */}
+      <div className="bg-surface/50 backdrop-blur-md border border-border rounded-4xl p-8 md:p-10 mb-12 shadow-lg relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none transform group-hover:scale-110 duration-700">
+           <ArrowLeftRight size={200} />
+        </div>
+        
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
+              <Sparkles size={12} /> {t('compare')}
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black text-text tracking-tight mb-2">
+              {t("compare_products")}
+            </h1>
+            <p className="text-subtext flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              {compareList.length} {t("items_to_compare")}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 w-full md:w-auto">
+            <Link
+              to="/shop"
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-background text-text px-6 py-3.5 rounded-xl hover:bg-surface transition-all border border-border font-bold text-sm shadow-sm"
+            >
+              <Plus size={18} />
+              {t("add_more_products")}
+            </Link>
+            <button
+              onClick={clearCompare}
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white px-6 py-3.5 rounded-xl transition-all font-bold text-sm border border-red-500/20 active:scale-95"
+            >
+              <Trash2 size={18} /> {t("clear_all")}
+            </button>
+          </div>
         </div>
       </div>
 

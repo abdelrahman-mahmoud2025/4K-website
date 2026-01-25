@@ -50,7 +50,6 @@
   "clear_filters": "مسح التصفية",
   "price_range": "نطاق السعر",
   "search_results": "نتائج البحث",
-  "no_results": "لا توجد نتائج",
   "offer_ends_in": "ينتهي العرض في",
   "quick_view": "نظرة سريعة",
   "view_details": "التفاصيل",
@@ -70,6 +69,8 @@
   "official_warranty_desc": "سنة كاملة على الأجهزة",
   "support_24_7": "دعم فني 24/7",
   "support_desc": "مساعدة تقنية متخصصة",
+  "secure_payment": "دفع آمن",
+  "secure_payment_desc": "طرق دفع متعددة وموثوقة",
   "installers.title": "دليل الفنيين المعتمدين",
   "installers.subtitle": "ابحث عن أفضل الفنيين لتركيب وصيانة أطباق الستالايت في محافظتك",
   "installers.filter_all": "كل المحافظات",
@@ -81,6 +82,10 @@
   "patcher.select_model": "اختر الموديل",
   "patcher.success": "تم العثور على الملفات",
   "patcher.start_over": "بدء من جديد",
+  "search_brand": "بحث عن العلامة التجارية...",
+  "search_model": "بحث عن الموديل...",
+  "no_results": "لا توجد نتائج تطابق بحثك",
+  "back_to_brands": "العودة للعلامات التجارية",
   "bundle.title": "صمم باقتك بنفسك",
   "bundle.subtitle": "اختر مكونات نظامك واحصل على خصم 10% فوراً",
   "bundle.summary": "ملخص الباقة",
@@ -260,5 +265,6 @@
   "rating": "التقييم",
   "add_more_products": "إضافة منتجات أخرى",
   "more_filters": "تصفية متقدمة",
-  "less_filters": "تصفية أقل"
+  "less_filters": "تصفية أقل",
+  "select_option": "اختر الخيار"
 }

@@ -52,7 +52,7 @@ const Countdown: React.FC<{ targetDate: string }> = ({ targetDate }) => {
   const TimeBlock = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
       <div
-        className={`text-lg font-black tabular-nums px-2 py-1 rounded-lg min-w-[40px] text-center ${
+        className={`text-lg font-black tabular-nums px-2 py-1 rounded-lg min-w-10 text-center ${
           isDark
             ? "bg-secondary/20 text-secondary"
             : "bg-secondary/15 text-secondary"
@@ -100,62 +100,29 @@ const Offers: React.FC = () => {
 
   return (
     <div className="min-h-screen pb-16">
-      {/* Hero Section */}
-      <div
-        className="relative overflow-hidden py-16 mb-12"
-        style={{
-          background: isDark
-            ? "linear-gradient(135deg, rgba(218,165,32,0.1) 0%, rgba(255,140,0,0.05) 50%, transparent 100%)"
-            : "linear-gradient(135deg, rgba(218,165,32,0.08) 0%, rgba(255,140,0,0.04) 50%, transparent 100%)",
-        }}
-      >
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-20 -right-20 w-64 h-64 opacity-10"
-            style={{
-              background:
-                "radial-gradient(circle, var(--color-primary) 0%, transparent 70%)",
-            }}
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-20 -left-20 w-80 h-80 opacity-10"
-            style={{
-              background:
-                "radial-gradient(circle, var(--color-secondary) 0%, transparent 70%)",
-            }}
-          />
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
+      {/* Hero Header Frame */}
+      <div className="container mx-auto px-4 pt-12">
+        <div className="bg-surface/50 backdrop-blur-md border border-border rounded-[2.5rem] p-10 md:p-16 mb-12 shadow-2xl relative overflow-hidden group">
+          {/* Decorative Background Icon */}
+          <div className="absolute -top-10 -right-10 p-10 opacity-5 group-hover:opacity-10 transition-all duration-700 pointer-events-none transform group-hover:rotate-12 group-hover:scale-110">
+            <Flame size={320} />
+          </div>
+          
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center text-center"
+            className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto"
           >
-            {/* Icon */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-              className="mb-6 p-4 rounded-2xl"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(218,165,32,0.2) 0%, rgba(255,140,0,0.15) 100%)",
-                border: "1px solid rgba(218,165,32,0.3)",
-              }}
+              className="inline-flex items-center justify-center p-5 bg-secondary/10 rounded-2xl mb-8 text-secondary shadow-inner"
             >
-              <Flame size={40} className="text-secondary" />
+              <Flame size={48} />
             </motion.div>
 
-            {/* Title */}
-            <h1
-              className={`text-4xl md:text-5xl font-black mb-4 ${isDark ? "text-white" : "text-gray-900"}`}
-            >
+            <h1 className="text-4xl md:text-6xl font-black mb-6 text-text tracking-tight">
               {t("offers")}
             </h1>
 
@@ -164,24 +131,18 @@ const Offers: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,140,0,0.15) 0%, rgba(218,165,32,0.1) 100%)",
-                border: "1px solid rgba(255,140,0,0.3)",
-              }}
+              className="flex items-center gap-3 px-6 py-3 rounded-full bg-secondary/10 border border-secondary/20 shadow-sm"
             >
-              <Timer size={18} className="text-secondary animate-pulse" />
-              <span className="text-secondary font-bold">
+              <Timer size={20} className="text-secondary animate-pulse" />
+              <span className="text-secondary font-black uppercase tracking-widest text-sm">
                 {t("limited_time_deals")}
               </span>
-              <Sparkles size={16} className="text-primary" />
+              <Sparkles size={18} className="text-primary" />
             </motion.div>
 
-            {/* Count */}
-            <p className={`mt-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-              {offerProducts.length}{" "}
-              {t("products_available") || "products available"}
+            <p className="mt-8 text-subtext text-lg font-medium flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+              {offerProducts.length} {t("products_available") || "products available"}
             </p>
           </motion.div>
         </div>

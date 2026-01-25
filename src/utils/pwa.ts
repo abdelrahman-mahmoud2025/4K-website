@@ -1,6 +1,19 @@
 // Service Worker Registration with Smart Update
 
 export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
+  if (import.meta) {
+    console.log('[PWA] Service Worker disabled in development');
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for(let registration of registrations) {
+          registration.unregister();
+          console.log('[PWA] Unregistered SW in DEV');
+        }
+      });
+    }
+    return null;
+  }
+
   if (!('serviceWorker' in navigator)) {
     console.log('[PWA] Service workers not supported');
     return null;

@@ -23,9 +23,9 @@ const NotFound: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 overflow-hidden relative">
       {/* Background noise effect */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div
           className="w-full h-full"
           style={{
@@ -34,9 +34,12 @@ const NotFound: React.FC = () => {
         />
       </div>
 
-      <div className="relative z-10 text-center max-w-lg mx-auto">
+      <div className="relative z-10 text-center max-w-xl mx-auto bg-surface/40 backdrop-blur-md border border-border p-10 md:p-16 rounded-[3rem] shadow-2xl overflow-hidden">
+        {/* Decorative glow */}
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
+        
         {/* Satellite Dish SVG */}
-        <div className="relative w-64 h-64 mx-auto mb-8">
+        <div className="relative w-64 h-64 mx-auto mb-10 transform scale-110">
           {/* Dish Base/Stand */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-20 bg-linear-to-t from-gray-600 to-gray-500 rounded-b-lg" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-4 bg-gray-600 rounded-full" />
@@ -77,90 +80,62 @@ const NotFound: React.FC = () => {
           </div>
 
           {/* "No Signal" indicator */}
-          <div className="absolute -top-2 right-4 bg-red-500/90 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-lg">
+          <div className="absolute -top-2 right-4 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-full animate-pulse shadow-lg tracking-widest">
             {isRTL ? "لا توجد إشارة" : "NO SIGNAL"}
           </div>
         </div>
 
         {/* 404 Text with glitch effect */}
-        <div className="relative mb-4">
-          <h1 className="text-8xl font-black text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary animate-pulse">
-            404
-          </h1>
-          {/* Glitch layers */}
-          <h1
-            className="absolute top-0 left-0 w-full text-8xl font-black text-red-500/30 animate-glitch-1"
-            aria-hidden="true"
-          >
-            404
-          </h1>
-          <h1
-            className="absolute top-0 left-0 w-full text-8xl font-black text-blue-500/30 animate-glitch-2"
-            aria-hidden="true"
-          >
+        <div className="relative mb-6">
+          <h1 className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary animate-pulse tracking-tighter">
             404
           </h1>
         </div>
 
-        {/* Signal strength indicator */}
-        <div className="flex items-center justify-center gap-1 mb-6">
-          <span className="text-subtext text-sm mr-2">
-            {isRTL ? "قوة الإشارة:" : "Signal:"}
-          </span>
-          {signalBars.map((active, i) => (
-            <div
-              key={i}
-              className={`w-2 rounded-full transition-all duration-300 ${
-                active ? "bg-primary" : "bg-gray-300 dark:bg-gray-600"
-              }`}
-              style={{ height: `${(i + 1) * 6}px` }}
+        <div className="space-y-6 relative z-10">
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="text-3xl font-black text-text tracking-tight">
+              {isRTL ? "الصفحة غير موجودة" : "Page Not Found"}
+            </h2>
+
+            <p className="text-subtext text-lg leading-relaxed max-w-sm mx-auto opacity-80 font-medium">
+              {isRTL
+                ? "عذراً، يبدو أن الإشارة مقطوعة! الصفحة التي تبحث عنها غير موجودة أو تم نقلها."
+                : "Sorry, the signal is lost! The page you're looking for doesn't exist or has been moved."}
+            </p>
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center gap-3 bg-primary text-black font-black py-4 px-10 rounded-2xl hover:bg-white transition-all shadow-xl shadow-primary/20 transform hover:-translate-y-1 active:scale-95"
+            >
+              <Home size={20} />
+              {isRTL ? "الصفحة الرئيسية" : "Go Home"}
+            </Link>
+
+            <Link
+              to="/shop"
+              className="inline-flex items-center justify-center gap-3 bg-background border border-border text-text font-black py-4 px-10 rounded-2xl hover:bg-surface transition-all transform hover:-translate-y-1 active:scale-95"
+            >
+              <Search size={20} />
+              {isRTL ? "تصفح المنتجات" : "Browse Shop"}
+            </Link>
+          </div>
+
+          {/* Go back link */}
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center gap-2 text-subtext hover:text-primary transition-all font-black uppercase tracking-[0.2em] text-[10px] group pt-4 active:scale-90"
+          >
+            <ArrowLeft
+              size={14}
+              className={`group-hover:-translate-x-1 transition-transform ${isRTL ? "rotate-180" : ""}`}
             />
-          ))}
-          <span className="text-red-500 text-xs font-bold ml-2 animate-pulse">
-            {isRTL ? "ضعيفة" : "WEAK"}
-          </span>
+            {isRTL ? "العودة للخلف" : "Go back"}
+          </button>
         </div>
-
-        <h2 className="text-2xl font-bold text-text mb-3">
-          {isRTL ? "الصفحة غير موجودة" : "Page Not Found"}
-        </h2>
-
-        <p className="text-subtext mb-8 leading-relaxed">
-          {isRTL
-            ? "عذراً، يبدو أن الإشارة مقطوعة! الصفحة التي تبحث عنها غير موجودة أو تم نقلها."
-            : "Sorry, the signal is lost! The page you're looking for doesn't exist or has been moved."}
-        </p>
-
-        {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center gap-2 bg-primary text-black font-bold py-3 px-8 rounded-xl hover:bg-white transition-all shadow-lg shadow-primary/20 hover:-translate-y-1"
-          >
-            <Home size={20} />
-            {isRTL ? "الصفحة الرئيسية" : "Go Home"}
-          </Link>
-
-          <Link
-            to="/shop"
-            className="inline-flex items-center justify-center gap-2 bg-surface border border-border text-text font-bold py-3 px-8 rounded-xl hover:border-primary transition-all hover:-translate-y-1"
-          >
-            <Search size={20} />
-            {isRTL ? "تصفح المنتجات" : "Browse Shop"}
-          </Link>
-        </div>
-
-        {/* Go back link */}
-        <button
-          onClick={() => window.history.back()}
-          className="mt-6 inline-flex items-center gap-2 text-subtext hover:text-primary transition-colors group"
-        >
-          <ArrowLeft
-            size={16}
-            className={`group-hover:-translate-x-1 transition-transform ${isRTL ? "rotate-180" : ""}`}
-          />
-          {isRTL ? "العودة للصفحة السابقة" : "Go back to previous page"}
-        </button>
       </div>
 
       {/* CSS for glitch animation */}

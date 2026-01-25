@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Filter,
   ChevronDown,
@@ -14,6 +15,8 @@ import {
   Clock,
   Layers,
   ChevronUp,
+  Store,
+  Sparkles,
 } from "lucide-react";
 import { useData } from "../store/DataContext";
 import { useCompare } from "../store/StoreContext";
@@ -217,17 +220,30 @@ const Shop: React.FC = () => {
     [productsForFilters],
   );
 
+  // Helper function to get feature as string (handles both LocalizedString and string)
+  const getFeatureString = (
+    feature: string | { ar: string; en: string },
+  ): string => {
+    if (typeof feature === "string") return feature;
+    // For filtering, combine both languages to ensure matches in either
+    return `${feature.ar} ${feature.en}`;
+  };
+
   const featureGroups = useMemo(() => {
     const groups: Record<string, string[]> = {
-      length: [],
       system: [],
       connectivity: [],
       subscription: [],
       other: [],
     };
 
+    // Extract all features as strings for categorization
     const allFeatures = Array.from(
-      new Set(productsForFilters.flatMap((p) => p.features)),
+      new Set(
+        productsForFilters.flatMap((p) =>
+          p.features.map((f) => getFeatureString(f)),
+        ),
+      ),
     );
 
     allFeatures.forEach((f: string) => {
@@ -262,7 +278,9 @@ const Shop: React.FC = () => {
         featureFilters.length === 0 ||
         featureFilters.every((selectedFeat) =>
           product.features.some((prodFeat) =>
-            prodFeat.toLowerCase().includes(selectedFeat.toLowerCase()),
+            getFeatureString(prodFeat)
+              .toLowerCase()
+              .includes(selectedFeat.toLowerCase()),
           ),
         );
 
@@ -344,174 +362,197 @@ const Shop: React.FC = () => {
     <div className="container mx-auto px-4 py-8 relative">
       {/* Compare Floater */}
       {compareList.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-surface/90 border border-primary px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 animate-fade-in-up backdrop-blur-md">
-          <span className="text-text font-bold">
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-surface/90 border border-primary px-2 py-2 rounded-full shadow-2xl flex items-center gap-4 animate-fade-in-up backdrop-blur-md">
+          <span className="text-text font-bold text-center ">
             {compareList.length} {t("items_to_compare")}
           </span>
           <Link
             to="/compare"
-            className="bg-primary text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-white transition-all shadow-lg shadow-primary/20"
+            className="bg-primary text-black text-center px-3 py-2 rounded-full text-sm font-bold hover:bg-gray-400 transition-all shadow-lg shadow-primary/20"
           >
             {t("compare_now")}
           </Link>
         </div>
       )}
 
-      {/* Header & Sort */}
-      <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-4xl font-bold text-text mb-2 tracking-tight">
-            {t("shop")}
-          </h1>
-          <p className="text-subtext">
-            {filteredProducts.length} {t("results_found")}
-          </p>
+      {/* Header Frame */}
+      <div className="bg-surface/50 backdrop-blur-md border border-border rounded-4xl p-8 md:p-10 mb-10 shadow-lg relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none transform group-hover:scale-110 duration-700">
+          <Store size={200} />
         </div>
 
-        <div className="flex items-center gap-4 w-full md:w-auto">
-          {/* Sort Dropdown */}
-          <div className="relative flex-1 md:w-64 group">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="w-full appearance-none bg-surface border border-border text-text px-5 py-3 rounded-xl focus:border-primary focus:outline-none cursor-pointer font-medium shadow-sm transition-all hover:border-primary/50"
-            >
-              <option value="featured">{t("sort.featured")}</option>
-              <option value="price_low">{t("sort.price_low")}</option>
-              <option value="price_high">{t("sort.price_high")}</option>
-              <option value="rating">{t("sort.rating")}</option>
-              <option value="newest">{t("sort.newest")}</option>
-            </select>
-            <ChevronDown
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-subtext pointer-events-none group-hover:text-primary transition-colors"
-              size={18}
-            />
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
+              <Sparkles size={12} /> {t("view_all_products")}
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black text-text tracking-tight mb-2">
+              {t("shop")}
+            </h1>
+            <p className="text-subtext flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              {filteredProducts.length} {t("results_found")}
+            </p>
+          </div>
+
+          <div className="w-full md:w-auto">
+            {/* Sort Dropdown */}
+            <div className="relative group min-w-50">
+              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-subtext group-hover:text-primary transition-colors">
+                <SlidersHorizontal size={16} />
+              </div>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full appearance-none bg-background border border-border text-text pl-12 pr-10 py-3.5 rounded-xl focus:border-primary focus:outline-none cursor-pointer font-bold shadow-sm transition-all hover:border-primary/50"
+              >
+                <option value="featured">{t("sort.featured")}</option>
+                <option value="price_low">{t("sort.price_low")}</option>
+                <option value="price_high">{t("sort.price_high")}</option>
+                <option value="rating">{t("sort.rating")}</option>
+                <option value="newest">{t("sort.newest")}</option>
+              </select>
+              <ChevronDown
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-subtext pointer-events-none group-hover:text-primary transition-colors"
+                size={18}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* DESKTOP FILTERS (Row) */}
-      <div className="hidden md:flex flex-col gap-4 mb-8">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="text-sm font-bold text-subtext uppercase mr-2 flex items-center gap-2">
-            <Filter size={16} /> {t("filters")}:
-          </div>
-
-          {/* Category Filter */}
-          <FilterDropdown
-            title={t("category")}
-            activeCount={categoryFilters.length}
-          >
-            <div className="space-y-1">
-              {categories.map((cat) => (
-                <FilterCheckbox
-                  key={cat}
-                  label={t(`categories.${cat}`) || cat}
-                  checked={categoryFilters.includes(cat)}
-                  onChange={() => toggleFilter(setCategoryFilters, cat)}
-                />
-              ))}
+      <div className="hidden md:block mb-10 relative z-40">
+        <div className="bg-surface/30 backdrop-blur-sm border border-border rounded-2xl p-4 flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="text-xs font-black text-subtext uppercase tracking-widest mr-2 flex items-center gap-2">
+              <Filter size={14} className="text-primary" /> {t("filters")}
             </div>
-          </FilterDropdown>
 
-          {/* Brand Filter */}
-          <FilterDropdown title={t("brand")} activeCount={brandFilters.length}>
-            <div className="space-y-1">
-              {availableBrands.map((brand) => (
-                <FilterCheckbox
-                  key={brand}
-                  label={brand}
-                  checked={brandFilters.includes(brand)}
-                  onChange={() => toggleFilter(setBrandFilters, brand)}
-                />
-              ))}
-            </div>
-          </FilterDropdown>
-
-          {/* Price Filter */}
-          <FilterDropdown
-            title={t("price_range")}
-            activeCount={priceRange < 10000 ? 1 : 0}
-          >
-            <div className="px-2 py-2">
-              <input
-                type="range"
-                min="0"
-                max="10000"
-                step="100"
-                value={priceRange}
-                onChange={(e) => setPriceRange(Number(e.target.value))}
-                className="w-full accent-primary h-1.5 bg-background rounded-lg appearance-none cursor-pointer"
-              />
-              <div className="text-text mt-3 font-mono font-bold text-sm flex justify-between">
-                <span>0</span>
-                <span>
-                  {priceRange} {t("currency")}
-                </span>
-              </div>
-            </div>
-          </FilterDropdown>
-
-          {/* Clear Button */}
-          {(categoryFilters.length > 0 ||
-            brandFilters.length > 0 ||
-            featureFilters.length > 0 ||
-            priceRange < 10000) && (
-            <button
-              onClick={clearAllFilters}
-              className="text-red-500 hover:text-red-600 text-sm font-bold flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-red-500/10 transition-colors"
+            {/* Category Filter */}
+            <FilterDropdown
+              title={t("category")}
+              activeCount={categoryFilters.length}
             >
-              <X size={14} /> {t("clear_filters")}
-            </button>
-          )}
+              <div className="space-y-1">
+                {categories.map((cat) => (
+                  <FilterCheckbox
+                    key={cat}
+                    label={t(`categories.${cat}`) || cat}
+                    checked={categoryFilters.includes(cat)}
+                    onChange={() => toggleFilter(setCategoryFilters, cat)}
+                  />
+                ))}
+              </div>
+            </FilterDropdown>
 
-          <div className="grow"></div>
+            {/* Brand Filter */}
+            <FilterDropdown
+              title={t("brand")}
+              activeCount={brandFilters.length}
+            >
+              <div className="space-y-1">
+                {availableBrands.map((brand) => (
+                  <FilterCheckbox
+                    key={brand}
+                    label={brand}
+                    checked={brandFilters.includes(brand)}
+                    onChange={() => toggleFilter(setBrandFilters, brand)}
+                  />
+                ))}
+              </div>
+            </FilterDropdown>
 
-          {/* More Filters Toggle */}
-          <button
-            onClick={() => setShowMoreFilters(!showMoreFilters)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all text-sm font-bold
-              ${
-                showMoreFilters || featureFilters.length > 0
-                  ? "bg-surface border-primary text-primary shadow-sm"
-                  : "bg-surface border-border text-subtext hover:text-text"
-              }`}
-          >
-            <SlidersHorizontal size={16} />
-            {showMoreFilters ? t("less_filters") : t("more_filters")}
-            {featureFilters.length > 0 && (
-              <span className="bg-primary text-black text-xs rounded-full w-5 h-5 flex items-center justify-center ml-1">
-                {featureFilters.length}
-              </span>
-            )}
-          </button>
-        </div>
-
-        {/* Secondary Row (Features) */}
-        {showMoreFilters && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 bg-surface rounded-2xl border border-border animate-fade-in-up">
-            {Object.entries(featureGroups).map(
-              ([group, features]: [string, string[]]) => (
-                <div key={group}>
-                  <h4 className="text-sm font-bold text-subtext uppercase mb-3 flex items-center gap-2">
-                    {getGroupIcon(group)}
-                    {t(`feature_groups.${group}`) || t("features")}
-                  </h4>
-                  <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar pr-2">
-                    {features.map((feat) => (
-                      <FilterCheckbox
-                        key={feat}
-                        label={feat}
-                        checked={featureFilters.includes(feat)}
-                        onChange={() => toggleFilter(setFeatureFilters, feat)}
-                      />
-                    ))}
-                  </div>
+            {/* Price Filter */}
+            <FilterDropdown
+              title={t("price_range")}
+              activeCount={priceRange < 10000 ? 1 : 0}
+            >
+              <div className="px-2 py-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="10000"
+                  step="100"
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(Number(e.target.value))}
+                  className="w-full accent-primary h-1.5 bg-background rounded-lg appearance-none cursor-pointer"
+                />
+                <div className="text-text mt-3 font-mono font-bold text-sm flex justify-between">
+                  <span>0</span>
+                  <span>
+                    {priceRange} {t("currency")}
+                  </span>
                 </div>
-              ),
+              </div>
+            </FilterDropdown>
+
+            {/* Clear Button */}
+            {(categoryFilters.length > 0 ||
+              brandFilters.length > 0 ||
+              featureFilters.length > 0 ||
+              priceRange < 10000) && (
+              <button
+                onClick={clearAllFilters}
+                className="text-red-500 hover:text-white hover:bg-red-500/80 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/20 flex items-center gap-2 active:scale-95"
+              >
+                <X size={14} /> {t("clear_filters")}
+              </button>
             )}
+
+            <div className="grow"></div>
+
+            {/* More Filters Toggle */}
+            <button
+              onClick={() => setShowMoreFilters(!showMoreFilters)}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl border transition-all text-xs font-black uppercase tracking-wider
+                ${
+                  showMoreFilters || featureFilters.length > 0
+                    ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
+                    : "bg-background border-border text-subtext hover:border-primary/50 hover:text-text"
+                }`}
+            >
+              <SlidersHorizontal size={14} />
+              {showMoreFilters ? t("less_filters") : t("more_filters")}
+              {featureFilters.length > 0 && (
+                <span className="bg-black/20 text-black text-[10px] rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {featureFilters.length}
+                </span>
+              )}
+            </button>
           </div>
-        )}
+
+          {/* Secondary Row (Features) */}
+          {showMoreFilters && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-6 bg-background/50 rounded-2xl border border-border overflow-hidden"
+            >
+              {Object.entries(featureGroups).map(
+                ([group, features]: [string, string[]]) => (
+                  <div key={group} className="space-y-4">
+                    <h4 className="text-[10px] font-black text-subtext uppercase tracking-widest flex items-center gap-2 opacity-60">
+                      {getGroupIcon(group)}
+                      {t(`feature_groups.${group}`) || t("features")}
+                    </h4>
+                    <div className="space-y-1 max-h-48 overflow-y-auto custom-scrollbar pr-2">
+                      {features.map((feat) => (
+                        <FilterCheckbox
+                          key={feat}
+                          label={feat}
+                          checked={featureFilters.includes(feat)}
+                          onChange={() => toggleFilter(setFeatureFilters, feat)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ),
+              )}
+            </motion.div>
+          )}
+        </div>
       </div>
 
       {/* MOBILE FLOATING FILTER BUTTON */}
@@ -519,7 +560,7 @@ const Shop: React.FC = () => {
         {/* Floating Button */}
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center
+          className={`fixed bottom-6 left-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center
             ${showFilters ? "bg-red-500 rotate-90" : "bg-primary text-black hover:scale-105"}`}
         >
           {showFilters ? (

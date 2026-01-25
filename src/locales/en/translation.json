@@ -50,7 +50,6 @@
   "clear_filters": "Clear Filters",
   "price_range": "Price Range",
   "search_results": "Search Results",
-  "no_results": "No results found",
   "offer_ends_in": "Offer ends in",
   "quick_view": "Quick View",
   "view_details": "View Details",
@@ -72,6 +71,8 @@
   "official_warranty_desc": "1 Year on all devices",
   "support_24_7": "24/7 Support",
   "support_desc": "Technical assistance",
+  "secure_payment": "Secure Payment",
+  "secure_payment_desc": "Multiple trusted payment options",
   "installers.title": "Verified Technicians Directory",
   "installers.subtitle": "Find the best satellite dish installers in your area",
   "installers.filter_all": "All Governorates",
@@ -83,6 +84,10 @@
   "patcher.select_model": "Select Model",
   "patcher.success": "Files Found",
   "patcher.start_over": "Start Over",
+  "search_brand": "Search brand...",
+  "search_model": "Search model...",
+  "no_results": "No results found matching your search",
+  "back_to_brands": "Back to Brands",
   "bundle.title": "Build Your Bundle",
   "bundle.subtitle": "Select your system components and get 10% OFF instantly",
   "bundle.summary": "Bundle Summary",
@@ -202,7 +207,6 @@
   "subtotal": "Subtotal",
   "shipping": "Shipping",
   "free": "Free",
-  "payment_instapay": "Instapay / Smart Wallet",
   "transfer_instruction": "Transfer the total amount to:",
   "supported_wallets": "Support Vodafone Cash, InstaPay, Etisalat Cash",
   "checkout_step_1": "1. Make the transfer using your preferred app.",
@@ -261,5 +265,6 @@
   "rating": "Rating",
   "add_more_products": "Add More Products",
   "more_filters": "More Filters",
-  "less_filters": "Less Filters"
+  "less_filters": "Less Filters",
+  "select_option": "Select Option"
 }

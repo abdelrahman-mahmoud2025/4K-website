@@ -10,6 +10,8 @@ import {
   X,
   Banknote,
   CheckCircle,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import { useCart } from "../store/StoreContext";
 import { Link } from "react-router-dom";
@@ -53,7 +55,7 @@ const Cart: React.FC = () => {
 
     const methodText =
       paymentMethod === "cash" ? t("payment_cash") : t("payment_instapay");
-    const message = `Hello, I would like to order:\n\n${itemList}\n\nTotal: ${total} EGP\nPayment: ${methodText}\n\n${paymentMethod === "instapay" ? "I will send the payment screenshot shortly." : "Please confirm my address."}`;
+    const message = `اهلا, اريد طلب:\n\n${itemList}\n\nTotal: ${total} EGP\nPayment: ${methodText}\n\n${paymentMethod === "instapay" ? "سأقوم بارسال شاشة الدفع قريبا." : "يرجى تأكيد عنواني."}`;
 
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
@@ -69,119 +71,175 @@ const Cart: React.FC = () => {
   const handleAskOnly = () => {
     const phoneNumber = "+201090969040";
     const itemList = items.map((i) => `- ${i.name["en"]}`).join("\n");
-    const message = `Hello, I have questions about these products in my cart:\n\n${itemList}`;
+    const message = `اهلا, لدي استفسار حول هذه المنتجات في عربة التسوق:\n\n${itemList}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 relative">
-      <h1 className="text-3xl font-bold text-text mb-8">{t("cart")}</h1>
+    <div className="container mx-auto px-4 py-12 relative min-h-[80vh]">
+      {/* Header Frame */}
+      <div className="bg-surface/50 backdrop-blur-md border border-border rounded-4xl p-8 md:p-10 mb-10 shadow-lg relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none transform group-hover:scale-110 duration-700">
+          <ShoppingBag size={200} />
+        </div>
+
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
+            <Sparkles size={12} /> {t("checkout")}
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black text-text tracking-tight mb-2">
+            {t("cart")}
+          </h1>
+          <p className="text-subtext flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            {items.reduce((acc, item) => acc + item.quantity, 0)} {t("items")}
+          </p>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
-          <AnimatePresence>
-            {items.map((item) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                className="bg-surface p-4 rounded-2xl border border-border flex flex-col sm:flex-row items-center gap-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="w-24 h-24 bg-white rounded-xl shrink-0 p-2 flex items-center justify-center border border-border">
-                  <LazyImage
-                    src={item.image}
-                    alt={item.name[lang]}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+          <AnimatePresence mode="popLayout">
+            {items.map((item) => {
+              // Use variant price if available, otherwise use product price
+              const displayPrice = item.selectedVariant?.price ?? item.price;
+              const cartKey = item.selectedVariant
+                ? `${item.id}-${item.selectedVariant.id}`
+                : item.id;
 
-                <div className="grow text-center sm:text-left">
-                  <h3 className="text-lg font-bold text-text mb-1 line-clamp-2">
-                    {item.name[lang]}
-                  </h3>
-                  <p className="text-primary font-bold text-lg">
-                    {item.price} {t("currency")}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-3 bg-background rounded-xl p-1.5 border border-border">
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface hover:bg-border text-text transition-colors active:scale-90"
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span className="text-text w-6 text-center font-bold">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface hover:bg-border text-text transition-colors active:scale-90"
-                    >
-                      <Plus size={16} />
-                    </button>
+              return (
+                <motion.div
+                  key={cartKey}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  className="bg-surface/60 backdrop-blur-sm p-5 rounded-3xl border border-border flex flex-col sm:flex-row items-center gap-6 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all group"
+                >
+                  <div className="w-28 h-28 bg-white rounded-2xl shrink-0 p-3 flex items-center justify-center border border-border shadow-inner group-hover:scale-105 transition-transform">
+                    <LazyImage
+                      src={item.image}
+                      alt={item.name[lang]}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
 
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-red-500 hover:text-red-600 hover:bg-red-500/10 p-2.5 rounded-xl transition-colors"
-                  >
-                    <Trash2 size={20} />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="grow text-center sm:text-left">
+                    <h3 className="text-xl font-bold text-text mb-1 line-clamp-2 leading-tight">
+                      {item.name[lang]}
+                    </h3>
+                    {/* Show variant name if available */}
+                    {item.selectedVariant && (
+                      <p className="text-sm text-primary font-bold mb-2">
+                        {item.selectedVariant.name[lang]}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-center sm:justify-start gap-3">
+                      <p className="text-primary font-black text-2xl">
+                        {displayPrice}{" "}
+                        <span className="text-sm font-normal text-subtext uppercase">
+                          {t("currency")}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4 bg-background/50 rounded-2xl p-2 border border-border">
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
+                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-border hover:border-primary hover:text-primary transition-all active:scale-90 shadow-sm"
+                      >
+                        <Minus size={18} />
+                      </button>
+                      <span className="text-text w-8 text-center font-black text-lg">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface border border-border hover:border-primary hover:text-primary transition-all active:scale-90 shadow-sm"
+                      >
+                        <Plus size={18} />
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-subtext hover:text-red-500 hover:bg-red-500/10 p-3 rounded-2xl transition-all active:scale-90"
+                    >
+                      <Trash2 size={22} />
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 
         {/* Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-surface p-6 rounded-2xl border border-border sticky top-24 shadow-lg">
-            <h3 className="text-xl font-bold text-text mb-6 border-b border-border pb-4">
-              {t("total")}
+          <div className="bg-surface/80 backdrop-blur-xl p-8 rounded-[2.5rem] border border-border sticky top-24 shadow-2xl overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
+
+            <h3 className="text-2xl font-black text-text mb-8 flex items-center justify-between relative z-10">
+              {t("bundle.summary")}
+              <ShoppingBag className="text-primary opacity-20" size={24} />
             </h3>
 
-            <div className="space-y-3 mb-6">
-              <div className="flex justify-between text-subtext">
+            <div className="space-y-4 mb-8 relative z-10">
+              <div className="flex justify-between text-subtext font-medium">
                 <span>{t("subtotal")}</span>
-                <span>
+                <span className="text-text font-bold">
                   {total} {t("currency")}
                 </span>
               </div>
-              <div className="flex justify-between text-subtext">
+              <div className="flex justify-between text-subtext font-medium">
                 <span>{t("shipping")}</span>
-                <span className="text-green-500 font-bold">{t("free")}</span>
+                <span className="text-green-500 font-black uppercase tracking-widest text-xs bg-green-500/10 px-2 py-1 rounded-lg">
+                  {t("free")}
+                </span>
               </div>
             </div>
 
-            <div className="flex justify-between text-3xl font-bold text-primary mb-8 pt-4 border-t border-border">
-              <span>{t("total")}</span>
-              <span>
-                {total}{" "}
-                <span className="text-base text-subtext font-normal">
-                  {t("currency")}
-                </span>
+            <div className="flex justify-between items-end mb-10 pt-6 border-t border-border relative z-10">
+              <span className="text-subtext font-bold uppercase tracking-widest text-xs mb-1">
+                {t("total")}
               </span>
+              <div className="text-right">
+                <div className="text-4xl font-black text-primary leading-none">
+                  {total}
+                </div>
+                <div className="text-xs text-subtext font-bold uppercase mt-1">
+                  {t("currency")}
+                </div>
+              </div>
             </div>
 
-            <button
-              onClick={() => setShowCheckout(true)}
-              className="w-full bg-primary text-black font-bold py-4 rounded-xl hover:bg-white transition-all shadow-lg hover:shadow-primary/20 transform active:scale-95"
-            >
-              {t("checkout")}
-            </button>
+            <div className="space-y-4 relative z-10">
+              <button
+                onClick={() => setShowCheckout(true)}
+                className="w-full bg-primary text-black font-black text-lg py-5 rounded-2xl hover:bg-white transition-all shadow-xl shadow-primary/20 transform active:scale-95 flex items-center justify-center gap-3"
+              >
+                {t("checkout")} <ArrowRight size={20} />
+              </button>
 
-            <button
-              onClick={handleAskOnly}
-              className="w-full mt-4 border-2 border-green-500 text-green-500 font-bold py-3 rounded-xl hover:bg-green-500 hover:text-white transition-all flex items-center justify-center gap-2"
-            >
-              <MessageCircle size={18} /> {t("ask_on_whatsapp")}
-            </button>
+              <button
+                onClick={handleAskOnly}
+                className="w-full group border border-border bg-background/50 hover:bg-green-500/10 hover:border-green-500/30 text-subtext hover:text-green-500 font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 active:scale-95"
+              >
+                <MessageCircle
+                  size={20}
+                  className="group-hover:animate-bounce"
+                />{" "}
+                {t("ask_on_whatsapp")}
+              </button>
+            </div>
           </div>
         </div>
       </div>

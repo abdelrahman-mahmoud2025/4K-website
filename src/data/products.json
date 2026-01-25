@@ -1,149 +1,291 @@
 [
   {
-    "id": "rec-1",
-    "name": { "ar": "نوفا آي ماك برو 4K", "en": "Nova iMac Pro 4K" },
-    "price": 3000,
-    "originalPrice": 4000,
+    "id": "rec-scope-smini-01",
+    "name": {
+      "ar": "سكوب إس ميني",
+      "en": "Scope S-MINI"
+    },
+    "price": 1099,
     "category": "receivers",
-    "brand": "Nova",
-    "image": "https://picsum.photos/400/400?random=1",
-    "description": { "ar": "أقوى رسيفر أندرويد مع اشتراكات مجانية", "en": "The most powerful Android receiver with free subscriptions" },
-    "features": ["4K UHD", "Android 11", "Forever Server", "2GB RAM", "WiFi"],
+    "brand": "Scope",
+    "image": "/products/p-1-1.webp",
+    "images": [
+      "/products/p-1-1.webp",
+      "/products/p-1-2.webp"
+    ],
+    "description": {
+      "ar": "ريسيفر ذكي مدمج بواي فاي داخلي واشتراكات قوية تشمل سيرفر نوفا لمدة سنتين.",
+      "en": "Compact smart receiver with built-in Wi-Fi and powerful subscriptions including 2 years of Nova server."
+    },
+    "features": [
+      { "ar": "المعالج: Sunplus 2507L", "en": "Processor: Sunplus 2507L" },
+      { "ar": "الرام: 1 جيجا / الفلاش: 8 ميجا", "en": "Ram: 1GB / Flash: 8MB" },
+      { "ar": "واي فاي مدمج", "en": "Built-in Wi-Fi" },
+      { "ar": "يدعم H.265 HEVC", "en": "H.265 HEVC Support" },
+      { "ar": "منفذ USB (تسجيل وتشغيل)", "en": "1x USB Port (Record & Play)" },
+      { "ar": "مخرج AV للتلفزيونات القديمة", "en": "AV Output (3x1) for older TVs" },
+      { "ar": "ريموت بلوتوث + ريموت تايمر", "en": "Bluetooth Remote + Timer Remote" },
+      { "ar": "شاشة LED رقمية خارجية", "en": "External Digital LED Screen" },
+      { "ar": "اشتراك نوفا IPTV 24 شهر", "en": "24 Months Nova IPTV" },
+      { "ar": "اشتراك XIPTV 12 شهر", "en": "12 Months XIPTV" },
+      { "ar": "اشتراك سبيد IPTV 12 شهر", "en": "12 Months Speed IPTV" },
+      { "ar": "اشتراك D-Cam شيرنج 12 شهر", "en": "12 Months D-Cam Sharing" },
+      { "ar": "اشتراك ناشير شيرنج 12 شهر", "en": "12 Months Nashare Sharing" }
+    ],
     "rating": 4.8,
     "inStock": true,
-    "isOffer": true,
-    "offerEndsAt": "2026-02-20T23:59:59",
-    "createdAt": "2026-01-10T10:00:00Z"
-  },
-  {
-    "id": "rec-2",
-    "name": { "ar": "سيناتور كابتن", "en": "Senator Captain" },
-    "price": 1200,
-    "category": "receivers",
-    "brand": "Senator",
-    "image": "https://picsum.photos/400/400?random=2",
-    "description": { "ar": "جهاز اقتصادي بأداء ممتاز", "en": "Economic device with excellent performance" },
-    "features": ["FHD", "Sunplus 2507", "WiFi Built-in", "Dlna"],
-    "rating": 4.5,
-    "inStock": true,
     "isOffer": false,
-    "createdAt": "2025-12-25T10:00:00Z"
-  },
-  {
-    "id": "rec-3",
-    "name": { "ar": "تايجر وان مليون", "en": "Tiger One Million" },
-    "price": 4500,
-    "originalPrice": 5000,
+    "createdAt": "2026-01-25T02:30:00Z"
+  },{
+    "id": "rec-scope-2030-02",
+    "name": {
+      "ar": "سكوب 2030",
+      "en": "Scope S-2030"
+    },
+    "price": 799,
     "category": "receivers",
-    "brand": "Tiger",
-    "image": "https://picsum.photos/400/400?random=6",
-    "description": { "ar": "رسيفر القمة تايجر", "en": "Top tier Tiger receiver" },
-    "features": ["Android", "4K", "3 Years IKS", "Bluetooth"],
-    "rating": 5.0,
+    "brand": "Scope",
+    "image": "/products/p-7.webp",
+    "images": ["/products/p-7.webp"],
+    "description": {
+      "ar": "جهاز اقتصادي متكامل يدعم البث الرقمي مع باقة اشتراكات متنوعة وواي فاي داخلي.",
+      "en": "Economic integrated device supporting digital broadcasting with various subscription packages and built-in Wi-Fi."
+    },
+    "features": [
+      { "ar": "المعالج: Sunplus 1506 TV", "en": "Processor: Sunplus 1506 TV" },
+      { "ar": "الرام: 512 ميجا / الفلاش: 8 ميجا", "en": "Ram: 512MB / Flash: 8MB" },
+      { "ar": "واي فاي مدمج", "en": "Built-in Wi-Fi" },
+      { "ar": "Full HD 1080P & H.265", "en": "Full HD 1080P & H.265 Support" },
+      { "ar": "منفذ USB واحد (تسجيل وتشغيل)", "en": "1x USB Port (Record & Play)" },
+      { "ar": "مخرج AV للتلفزيونات القديمة", "en": "AV Output (3x1) for older TVs" },
+      { "ar": "ريموت بلوتوث", "en": "Bluetooth Remote Control" },
+      { "ar": "يدعم Multi Stream", "en": "Multi Stream Support" },
+      { "ar": "اشتراك سبيد IPTV 24 شهر", "en": "24 Months Speed IPTV" },
+      { "ar": "اشتراك XIPTV 12 شهر", "en": "12 Months XIPTV" },
+      { "ar": "اشتراك ميجا IPTV 6 شهور", "en": "6 Months Mega IPTV" },
+      { "ar": "اشتراك سبيد شير 12 شهر", "en": "12 Months Speed Share" },
+      { "ar": "اشتراك ناشير شيرنج 12 شهر", "en": "12 Months Nashare Sharing" },
+      { "ar": "اشتراك DQ Cam شيرنج 12 شهر", "en": "12 Months DQ Cam Sharing" }
+    ],
+    "rating": 4.2,
     "inStock": true,
     "isOffer": true,
-    "offerEndsAt": "2026-03-01T12:00:00",
-    "createdAt": "2026-02-01T10:00:00Z"
-  },
-  {
-    "id": "srv-1",
-    "name": { "ar": "سيرفر فوريفر VIP", "en": "Forever VIP Server" },
-    "price": 800,
-    "category": "servers",
-    "brand": "Forever",
-    "image": "https://picsum.photos/400/400?random=3",
-    "description": { "ar": "اشتراك لمدة سنة كاملة", "en": "1 Year Subscription" },
-    "features": ["All Satellites", "Stable", "4K Support", "Sharing"],
-    "rating": 4.9,
-    "inStock": true,
-    "isOffer": false,
-    "createdAt": "2025-11-20T10:00:00Z"
-  },
-  {
-    "id": "acc-1",
-    "name": { "ar": "عدسة ستار جولد فوجي", "en": "Star Gold Fuji LNB" },
-    "price": 250,
-    "category": "accessories",
-    "brand": "Star Gold",
-    "image": "https://picsum.photos/400/400?random=4",
-    "description": { "ar": "أفضل عدسة لاستقبال الإشارات الضعيفة", "en": "Best LNB for weak signals" },
-    "features": ["Noise 0.1dB", "High Gain", "Weather Proof"],
+    "createdAt": "2026-01-25T02:40:00Z"
+  },{
+    "id": "rec-hyper-x10-pro-05",
+    "name": {
+      "ar": "هايبر X10 برو",
+      "en": "Hyper X10 Pro"
+    },
+    "price": 1199,
+    "category": "receivers",
+    "brand": "Hyper",
+    "image": "/products/p-2-1.webp",
+    "images": ["/products/p-2-1.webp", "/products/p-2-2.webp"],
+    "description": {
+      "ar": "الإصدار الأحدث Hyper X10 Pro بمعالج 2507 الجديد، يدعم تقنيات Dolby Digital واشتراكات هايبر المميزة لمدة 30 شهر.",
+      "en": "The latest Hyper X10 Pro with the new 2507 processor, supporting Dolby Digital and premium Hyper subscriptions for 30 months."
+    },
+    "features": [
+      { "ar": "المعالج: Sunplus 2507 (الجيل الجديد)", "en": "Processor: Sunplus 2507 (New Generation)" },
+      { "ar": "الرام: 1 جيجا DDR3 / الفلاش: 8 ميجا", "en": "Ram: 1GB DDR3 / Flash: 8MB" },
+      { "ar": "واي فاي مدمج", "en": "Built-in Wi-Fi" },
+      { "ar": "Full HD 1080P @ 60fps", "en": "Full HD 1080P @ 60fps" },
+      { "ar": "يدعم Dolby Digital و H.265 HEVC", "en": "Dolby Digital & HEVC H.265 Support" },
+      { "ar": "منفذ USB (تسجيل PVR وتشغيل)", "en": "1x USB Port (PVR Record & Play)" },
+      { "ar": "مخرج AV للتلفزيونات القديمة", "en": "AV Output (3x1) for older TVs" },
+      { "ar": "ريموت بلوتوث + ريموت تايمر", "en": "Bluetooth Remote + Timer Remote" },
+      { "ar": "شاشة LED رقمية لعرض رقم القناة", "en": "Digital LED Screen for channel numbering" },
+      { "ar": "واجهة مستخدم سلسة جديدة", "en": "New Fluid User Interface" },
+      { "ar": "اشتراك Hyper TV (IPTV) 30 شهر", "en": "30 Months Hyper TV (IPTV)" },
+      { "ar": "اشتراك Hyper Share 30 شهر", "en": "30 Months Hyper Share" },
+      { "ar": "اشتراك Nashare 2 لمدة 12 شهر", "en": "12 Months Nashare 2" },
+      { "ar": "اشتراك DQ Cam 12 شهر", "en": "12 Months DQ Cam" }
+    ],
     "rating": 4.7,
     "inStock": true,
     "isOffer": false,
-    "createdAt": "2025-10-15T10:00:00Z"
-  },
-  {
-    "id": "cab-1",
-    "name": { "ar": "كابل HDMI 2.1", "en": "HDMI 2.1 Cable" },
-    "price": 150,
-    "category": "cables",
-    "brand": "Generic",
-    "image": "https://picsum.photos/400/400?random=5",
-    "description": { "ar": "كابل يدعم 8K وسرعة عالية", "en": "Cable supports 8K and high speed" },
-    "features": ["8K", "High Speed", "3 Meters"],
-    "rating": 4.2,
-    "inStock": true,
-    "isOffer": false,
-    "createdAt": "2025-09-01T10:00:00Z"
-  },
-  {
-    "id": "rec-4",
-    "name": { "ar": "ستارسات هايبر 2000", "en": "Starsat Hyper 2000" },
-    "price": 2200,
+    "createdAt": "2026-01-25T03:30:00Z"
+  },{
+    "id": "rec-hyper-x6-pro-03",
+    "name": {
+      "ar": "هايبر X6 برو",
+      "en": "Hyper X6 Pro"
+    },
+    "price": 889,
     "category": "receivers",
-    "brand": "Starsat",
-    "image": "https://picsum.photos/400/400?random=7",
-    "description": { "ar": "الجهاز الأسطوري", "en": "The legendary device" },
-    "features": ["FHD", "G-Share", "WiFi"],
-    "rating": 4.6,
-    "inStock": false,
-    "isOffer": false,
-    "createdAt": "2024-05-20T10:00:00Z"
-  },
-  {
-    "id": "srv-2",
-    "name": { "ar": "سيرفر جي شير", "en": "G-Share Server" },
-    "price": 600,
-    "category": "servers",
-    "brand": "Starsat",
-    "image": "https://picsum.photos/400/400?random=8",
-    "description": { "ar": "تجديد سيرفر جي شير", "en": "G-Share Renewal" },
-    "features": ["Sharing", "Stable"],
+    "brand": "Hyper",
+    "image": "/products/p-6-1.webp",
+    "images": ["/products/p-6-1.webp", "/products/p-6-2.webp"],
+    "description": {
+      "ar": "جهاز هايبر المتطور بمعالج 2507DA، يدعم جودة Full HD مع باقة اشتراكات هايبر الحصرية لمدة سنة.",
+      "en": "Advanced Hyper device with 2507DA processor, supporting Full HD with exclusive 12-month Hyper subscription packages."
+    },
+    "features": [
+      { "ar": "المعالج: Sunplus 2507DA", "en": "Processor: Sunplus 2507DA" },
+      { "ar": "الرام: 512 ميجا / الفلاش: 8 ميجا", "en": "Ram: 512MB / Flash: 8MB" },
+      { "ar": "واي فاي مدمج", "en": "Built-in Wi-Fi" },
+      { "ar": "Full HD 1080P", "en": "Full HD 1080P" },
+      { "ar": "منفذ USB (تسجيل وتشغيل)", "en": "1x USB Port (Record & Play)" },
+      { "ar": "مخرج AV للتلفزيونات القديمة", "en": "AV Output (3x1) for older TVs" },
+      { "ar": "ريموت بلوتوث", "en": "Bluetooth Remote Control" },
+      { "ar": "يدعم شاشة LED خارجية", "en": "External LED Screen Support" },
+      { "ar": "اشتراك هايبر IPTV 12 شهر", "en": "12 Months Hyper IPTV" },
+      { "ar": "اشتراك هايبر شير 12 شهر", "en": "12 Months Hyper Share" },
+      { "ar": "اشتراك ناشير شيرنج 12 شهر", "en": "12 Months Nashare Sharing" },
+      { "ar": "اشتراك DQ Cam شيرنج 12 شهر", "en": "12 Months DQ Cam Sharing" }
+    ],
     "rating": 4.4,
     "inStock": true,
-    "isOffer": true,
-    "offerEndsAt": "2026-02-15T10:00:00",
-    "createdAt": "2025-12-01T10:00:00Z"
-  },
-  {
-    "id": "iptv-1",
-    "name": { "ar": "اشتراك كوبرا سنة", "en": "Cobra IPTV 1 Year" },
-    "price": 400,
-    "category": "servers",
-    "brand": "Cobra",
-    "image": "https://picsum.photos/400/400?random=9",
-    "description": { "ar": "مكتبة أفلام ومسلسلات ضخمة", "en": "Huge VOD Library" },
-    "features": ["IPTV", "4K Support", "Android App"],
-    "rating": 4.3,
-    "inStock": true,
     "isOffer": false,
-    "createdAt": "2026-01-20T10:00:00Z"
-  },
-  {
-    "id": "rec-5",
-    "name": { "ar": "أيكون آيرون برو", "en": "Icon Iron Pro" },
-    "price": 5500,
-    "originalPrice": 6000,
+    "createdAt": "2026-01-25T03:00:00Z"
+  },{
+    "id": "rec-hyper-x9-plus-04",
+    "name": {
+      "ar": "هايبر X9 بلس",
+      "en": "Hyper X9 Plus"
+    },
+    "price": 1499,
     "category": "receivers",
-    "brand": "Icon",
-    "image": "https://picsum.photos/400/400?random=10",
-    "description": { "ar": "الجهاز الأقوى بنظام أندرويد وسيرفر أوركا", "en": "The powerful Android device with Orca Server" },
-    "features": ["4K UHD", "Android 9", "Orca Server", "Gogo IPTV", "Dual Tuner"],
+    "brand": "Hyper",
+    "image": "/products/p-5-2.webp",
+    "images": ["/products/p-5-1.webp", "/products/p-5-2.webp", "/products/p-5-3.webp", "/products/p-5-4.webp"],
+    "description": {
+      "ar": "النسخة الأقوى من هايبر برام 2 جيجا وفلاشة 16 ميجا، يدعم كابل LAN مباشر واشتراكات تصل لـ 30 شهر.",
+      "en": "The most powerful Hyper version with 2GB RAM and 16MB Flash, supports direct LAN cable and subscriptions up to 30 months."
+    },
+    "features": [
+      { "ar": "المعالج: Sunplus 2507DA", "en": "Processor: Sunplus 2507DA" },
+      { "ar": "الرام: 2 جيجا / الفلاش: 16 ميجا", "en": "Ram: 2GB / Flash: 16MB" },
+      { "ar": "واي فاي مدمج + منفذ LAN", "en": "Built-in Wi-Fi & Ethernet (LAN) Port" },
+      { "ar": "ريموت بلوتوث + ريموت تايمر", "en": "Bluetooth Remote + Timer Remote" },
+      { "ar": "شاشة LED رقمية خارجية", "en": "External Digital LED Screen" },
+      { "ar": "Full HD 1080P & H.265", "en": "Full HD 1080P & H.265 Support" },
+      { "ar": "منفذ USB (تسجيل وتشغيل)", "en": "1x USB Port (Record & Play)" },
+      { "ar": "مخرج AV للتلفزيونات القديمة", "en": "AV Output (3x1) for older TVs" },
+      { "ar": "اشتراك هايبر IPTV 30 شهر", "en": "30 Months Hyper IPTV" },
+      { "ar": "اشتراك هايبر شير 30 شهر", "en": "30 Months Hyper Share" },
+      { "ar": "اشتراك ناشير شيرنج 12 شهر", "en": "12 Months Nashare Sharing" },
+      { "ar": "اشتراك DQ Cam شيرنج 12 شهر", "en": "12 Months DQ Cam Sharing" }
+    ],
     "rating": 4.9,
     "inStock": true,
+    "isOffer": false,
+    "createdAt": "2026-01-25T03:15:00Z"
+  },
+
+  {
+    "id": "acc-mount-p65-06",
+    "name": {
+      "ar": "حامل شاشة متحرك P65 (55-85 بوصة)",
+      "en": "P65 Full Motion TV Wall Mount (55-85 Inch)"
+    },
+    "price": 1400,
+    "category": "accessories",
+    "brand": "Generic",
+    "image": "/products/p-8-2.webp",
+    "images": ["/products/p-8-1.webp", "/products/p-8-2.webp", "/products/p-8-3.webp"],
+    "description": {
+      "ar": "حامل حائط احترافي فائق القوة، مصمم للشاشات الكبيرة من 55 حتى 85 بوصة، يتيح حركة كاملة في جميع الاتجاهات.",
+      "en": "Professional heavy-duty wall mount, designed for large screens from 55 to 85 inches, allowing full motion in all directions."
+    },
+    "features": [
+      { "ar": "الموديل: P65 Full Motion Cantilever", "en": "Model: P65 Full Motion Cantilever Mount" },
+      { "ar": "مقاسات الشاشة المدعومة: 55–85 بوصة", "en": "Fits Screen Sizes: 55\" - 85\"" },
+      { "ar": "الوزن المسموح: 68.2 كجم (150 رطل)", "en": "Load Capacity: 150 lbs (68.2 kg)" },
+      { "ar": "التوافق VESA: 200x200 حتى 600x400 مم", "en": "VESA Compliance: 200x200mm to 600x400mm" },
+      { "ar": "الخامة: صلب SPCC عالي الجودة", "en": "Material: High-quality SPCC cold rolling steel" },
+      { "ar": "حركة كاملة: ميلان، دوران، تعديل مستوى", "en": "Full Motion: Tilt, Swivel, and Level adjustment" },
+      { "ar": "إدارة الكابلات مدمجة", "en": "Cable Management System: Built-in" },
+      { "ar": "أمان: معتمد TUV Rheinland & GS", "en": "Safety: TUV Rheinland Certified & GS Approved" }
+    ],
+    "rating": 4.9,
+    "inStock": true,
+    "isOffer": false,
+    "createdAt": "2026-01-25T03:45:00Z"
+  },{
+    "id": "acc-mount-nb-32-07",
+    "name": {
+      "ar": "حامل شاشة متحرك NB (32 بوصة)",
+      "en": "NB Full Motion TV Wall Mount (32 Inch)"
+    },
+    "price": 275,
+    "category": "accessories",
+    "brand": "North Bayou",
+    "image": "/products/p-3.webp",
+    "images": ["/products/p-3.webp"],
+    "description": {
+      "ar": "حامل حائط متحرك أصلي من براند NB، يتميز بانسيابية الحركة والمتانة العالية للشاشات حتى 32 بوصة.",
+      "en": "Original NB full motion wall mount, featuring smooth movement and high durability for screens up to 32 inches."
+    },
+    "features": [
+      { "ar": "الماركة: North Bayou (NB) أصلي", "en": "Brand: North Bayou (NB) Original" },
+      { "ar": "مقاسات الشاشة: حتى 32 بوصة", "en": "Fits Screen Sizes: up to 32 Inch" },
+      { "ar": "نوع الحركة: Full Motion (ميلان ودوران)", "en": "Motion Type: Full Motion (Tilt & Swivel)" },
+      { "ar": "الخامة: سبيكة صلب ثقيلة التحمل", "en": "Material: Heavy-duty Alloy Steel" },
+      { "ar": "توافق VESA: قياسي لشاشات 32 بوصة", "en": "VESA Compliance: Standard support for 32\" monitors and TVs" },
+      { "ar": "تركيب سهل مع كل المسامير والأدوات", "en": "Easy Installation: Includes all mounting hardware" },
+      { "ar": "تصميم نحيف عند الطي لتوفير المساحة", "en": "Space Saving: Slim design when retracted to the wall" }
+    ],
+    "rating": 4.8,
+    "inStock": true,
     "isOffer": true,
-    "offerEndsAt": "2026-04-01T00:00:00",
-    "createdAt": "2026-02-10T10:00:00Z"
-  }
+    "createdAt": "2026-01-25T03:50:00Z"
+  },
+
+  {
+  "id": "cab-hdmi-4k-copper-08",
+  "name": {
+    "ar": "كبل HDMI 4K نحاس داخلي 1.5م",
+    "en": "HDMI 4K Copper Internal Cable 1.5M"
+  },
+  "price": 100,
+  "category": "cables",
+  "brand": "Generic",
+  "image": "/products/p-4.webp",
+  "images": [
+    "/products/p-4.webp"
+  ],
+  "description": {
+    "ar": "كابل HDMI عالي السرعة يدعم دقة 4K UHD، مصنوع من نحاس داخلي نقي لنقل إشارة مستقرة بدون فقدان جودة، مثالي للتلفزيونات الذكية وأجهزة الريسيفر.",
+    "en": "High-speed HDMI cable supporting 4K UHD resolution, made with pure internal copper for stable signal transmission without quality loss, ideal for smart TVs and receivers."
+  },
+  "features": [
+    { "ar": "يدعم 4K @ 60Hz و 8K @ 60Hz (حسب الطول)", "en": "Supports 4K @ 60Hz & 8K @ 60Hz (depending on length)" },
+    { "ar": "نحاس داخلي نقي عالي التوصيل", "en": "Pure high-conductivity copper core" },
+    { "ar": "سرعة نقل عالية HDMI 2.0 / 2.1 متوافق", "en": "High-speed HDMI 2.0 / 2.1 compatible" },
+    { "ar": "يدعم HDR, Dolby Vision, ARC, eARC", "en": "Supports HDR, Dolby Vision, ARC, eARC" },
+    { "ar": "موصلات ذهبية مقاومة للصدأ", "en": "Gold-plated corrosion-resistant connectors" }
+  ],
+  "variants": [
+    {
+      "id": "hdmi-1.5m",
+      "name": { "ar": "1.5 متر", "en": "1.5 Meters" },
+      "price": 100,
+      "inStock": true
+    },
+    {
+      "id": "hdmi-3m",
+      "name": { "ar": "3 متر", "en": "3 Meters" },
+      "price": 150,
+      "inStock": true
+    },
+    {
+      "id": "hdmi-5m",
+      "name": { "ar": "5 متر", "en": "5 Meters" },
+      "price": 200,
+      "inStock": true
+    },
+    {
+      "id": "hdmi-10m",
+      "name": { "ar": "10 متر", "en": "10 Meters" },
+      "price": 250,
+      "inStock": true
+    }
+  ],
+  "rating": 4.7,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-25T04:00:00Z"
+}
 ]

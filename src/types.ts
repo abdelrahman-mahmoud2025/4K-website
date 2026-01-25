@@ -3,6 +3,15 @@ export interface LocalizedString {
   en: string;
 }
 
+// Product variant for items with multiple options (sizes, lengths, subscriptions, etc.)
+export interface ProductVariant {
+  id: string;
+  name: LocalizedString;
+  price: number;
+  originalPrice?: number;
+  inStock?: boolean;
+}
+
 export interface Product {
   id: string;
   name: LocalizedString;
@@ -13,13 +22,14 @@ export interface Product {
   image: string;
   images?: string[]; // Multiple images for slider
   description: LocalizedString;
-  features: string[];
+  features: (LocalizedString | string)[];
   specs?: Record<string, string>; // Key-value for comparison
   rating: number;
   inStock: boolean;
   isOffer?: boolean;
   offerEndsAt?: string;
   createdAt?: string; // For Newest sort
+  variants?: ProductVariant[]; // For products with multiple options
 }
 
 
@@ -57,6 +67,7 @@ export interface Installer {
 
 export interface CartItem extends Product {
   quantity: number;
+  selectedVariant?: ProductVariant; // The variant selected when adding to cart
 }
 
 export interface SearchablePage {

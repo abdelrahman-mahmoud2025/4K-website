@@ -238,7 +238,7 @@ const Header: React.FC = () => {
             {showSuggestions &&
               (suggestions.products.length > 0 ||
                 suggestions.feeds.length > 0 || suggestions.pages?.length > 0) && (
-                <div className="absolute w-full bg-surface border border-border rounded-xl shadow-2xl z-50 mt-2 overflow-hidden animate-fade-in-up">
+                <div className="absolute w-100 bg-surface border border-border rounded-xl shadow-2xl z-50 mt-2 overflow-hidden animate-fade-in-up">
                   {suggestions.pages?.length > 0 && (
                     <div className="p-2 border-b border-border/50">
                       <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">

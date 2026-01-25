@@ -7,7 +7,7 @@ import React, {
   useMemo,
 } from "react";
 import toast from "react-hot-toast";
-import { CartItem, Product } from "../types";
+import { CartItem, Product, ProductVariant } from "../types";
 
 // ==================== Types ====================
 
@@ -27,7 +27,7 @@ interface CompareState {
 interface StoreContextType {
   // Cart
   cart: CartState;
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product, variant?: ProductVariant) => void;
   removeFromCart: (productId: string) => void;
   updateCartQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -80,7 +80,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   // Quick View State
-  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(
+    null,
+  );
 
   // ==================== Persist to localStorage ====================
 
@@ -98,19 +100,40 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // ==================== Cart Actions ====================
 
-  const addToCart = useCallback((product: Product) => {
-    setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
-  }, []);
+  const addToCart = useCallback(
+    (product: Product, variant?: ProductVariant) => {
+      setCartItems((prev) => {
+        // Create unique key for cart item (product + variant combination)
+        const cartKey = variant ? `${product.id}-${variant.id}` : product.id;
+        const existing = prev.find((item) => {
+          const itemKey = item.selectedVariant
+            ? `${item.id}-${item.selectedVariant.id}`
+            : item.id;
+          return itemKey === cartKey;
+        });
+
+        if (existing) {
+          return prev.map((item) => {
+            const itemKey = item.selectedVariant
+              ? `${item.id}-${item.selectedVariant.id}`
+              : item.id;
+            return itemKey === cartKey
+              ? { ...item, quantity: item.quantity + 1 }
+              : item;
+          });
+        }
+
+        // Add new item with variant if provided
+        const newItem: CartItem = {
+          ...product,
+          quantity: 1,
+          selectedVariant: variant,
+        };
+        return [...prev, newItem];
+      });
+    },
+    [],
+  );
 
   const removeFromCart = useCallback((productId: string) => {
     setCartItems((prev) => prev.filter((item) => item.id !== productId));
@@ -131,7 +154,11 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
   const clearCart = useCallback(() => setCartItems([]), []);
 
   const cartTotal = useMemo(
-    () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    () =>
+      cartItems.reduce((sum, item) => {
+        const itemPrice = item.selectedVariant?.price ?? item.price;
+        return sum + itemPrice * item.quantity;
+      }, 0),
     [cartItems],
   );
 
