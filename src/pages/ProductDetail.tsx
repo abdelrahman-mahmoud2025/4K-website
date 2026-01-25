@@ -421,7 +421,7 @@ const ProductDetail: React.FC = () => {
                       ? selectedVariant?.inStock === false
                       : !product.inStock
                   }
-                  className={`w-full font-black text-lg py-5 px-8 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 shadow-2xl active:scale-95 ${
+                  className={`w-full font-black text-lg py-5 px-8 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 shadow-2xl active:scale-95 cursor-pointer ${
                     (
                       product.variants
                         ? selectedVariant?.inStock !== false
@@ -444,14 +444,14 @@ const ProductDetail: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={handleCompareToggle}
-                    className={`py-4 rounded-2xl font-black text-xs uppercase tracking-widest border transition-all flex items-center justify-center gap-2 active:scale-95 ${inCompare ? "bg-primary/10 border-primary text-primary" : "bg-background border-border text-subtext hover:border-primary/50 hover:text-text"}`}
+                    className={`py-4 px-2 md:px-4 lg:px-6 rounded-2xl font-black text-xs uppercase tracking-widest border transition-all flex items-center justify-center gap-2 active:scale-95 ${inCompare ? "bg-primary/10 border-primary text-primary" : "bg-background border-border text-subtext hover:border-primary/50 hover:text-text cursor-pointer"}`}
                   >
                     <ArrowLeftRight size={18} />{" "}
                     {inCompare ? t("added") : t("compare")}
                   </button>
                   <button
                     onClick={() => toggleWishlist(product)}
-                    className={`py-4 rounded-2xl font-black text-xs uppercase tracking-widest border transition-all flex items-center justify-center gap-2 active:scale-95 ${inWishlist ? "bg-red-500/10 border-red-500 text-red-500 shadow-lg shadow-red-500/10" : "bg-background border-border text-subtext hover:border-red-500/50 hover:text-text"}`}
+                    className={`py-4 px-2 md:px-4 lg:px-6 rounded-2xl font-black text-xs uppercase tracking-widest border transition-all flex items-center justify-center gap-2 active:scale-95 ${inWishlist ? "bg-red-500/10 border-red-500 text-red-500 shadow-lg shadow-red-500/10" : "bg-background border-border text-subtext hover:border-red-500/50 hover:text-text cursor-pointer"}`}
                   >
                     <Heart
                       size={18}
@@ -482,23 +482,25 @@ const ProductDetail: React.FC = () => {
       </div>
 
       {/* Modern Tabs Section */}
-      <div className="bg-surface/40 backdrop-blur-md rounded-[2.5rem] border border-border overflow-hidden mb-20 shadow-xl group">
-        <div className="flex border-b border-border overflow-x-auto bg-background/20 p-2 gap-2">
+      <div className="bg-surface/40 backdrop-blur-md rounded-2xl md:rounded-[2.5rem] border border-border overflow-hidden mb-12 md:mb-20 shadow-xl group">
+        <div className="flex border-b border-border overflow-x-auto bg-background/20 p-1.5 md:p-2 gap-1.5 md:gap-2">
           <button
-            className={`flex-1 min-w-37.5 px-8 py-5 font-black text-xs uppercase tracking-[0.2em] transition-all rounded-2xl flex items-center justify-center gap-3 active:scale-95 ${activeTab === "desc" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
+            className={`flex-1 min-w-28 md:min-w-37.5 px-4 md:px-8 py-3 md:py-5 font-black text-[10px] md:text-xs uppercase tracking-wider md:tracking-[0.2em] transition-all rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 active:scale-95 ${activeTab === "desc" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
             onClick={() => setActiveTab("desc")}
           >
-            <FileText size={18} /> {t("description")}
+            <FileText size={14} className="md:w-[18px] md:h-[18px]" />{" "}
+            {t("description")}
           </button>
           <button
-            className={`flex-1 min-w-37.5 px-8 py-5 font-black text-xs uppercase tracking-[0.2em] transition-all rounded-2xl flex items-center justify-center gap-3 active:scale-95 ${activeTab === "specs" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
+            className={`flex-1 min-w-28 md:min-w-37.5 px-4 md:px-8 py-3 md:py-5 font-black text-[10px] md:text-xs uppercase tracking-wider md:tracking-[0.2em] transition-all rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 active:scale-95 ${activeTab === "specs" ? "text-black bg-primary shadow-lg shadow-primary/20" : "text-subtext hover:text-text hover:bg-surface/50"}`}
             onClick={() => setActiveTab("specs")}
           >
-            <Settings size={18} /> {t("features")} & {t("specs")}
+            <Settings size={14} className="md:w-[18px] md:h-[18px]" />{" "}
+            {t("features")} & {t("specs")}
           </button>
         </div>
 
-        <div className="p-10 md:p-16 min-h-75 relative">
+        <div className="p-5 md:p-10 lg:p-16 min-h-50 md:min-h-75 relative">
           <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-primary/2 via-transparent to-transparent pointer-events-none"></div>
 
           <AnimatePresence mode="wait">
@@ -510,7 +512,7 @@ const ProductDetail: React.FC = () => {
                 exit={{ opacity: 0, y: -10 }}
                 className="relative z-10"
               >
-                <p className="text-text leading-loose text-lg whitespace-pre-line max-w-4xl opacity-90">
+                <p className="text-text leading-relaxed md:leading-loose text-sm md:text-base lg:text-lg whitespace-pre-line max-w-4xl opacity-90">
                   {product.description[lang]}
                 </p>
               </motion.div>
@@ -522,26 +524,31 @@ const ProductDetail: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12"
+                className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12"
               >
                 <div>
-                  <h3 className="text-2xl font-black text-text mb-8 tracking-tight flex items-center gap-3">
-                    <div className="w-1.5 h-8 bg-primary rounded-full"></div>
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-black text-text mb-4 md:mb-6 lg:mb-8 tracking-tight flex items-center gap-2 md:gap-3">
+                    <div className="w-1 md:w-1.5 h-6 md:h-8 bg-primary rounded-full"></div>
                     {t("key_features")}
                   </h3>
-                  <ul className="space-y-4">
+                  {/* Features Grid - 2 columns on mobile, single list on larger screens */}
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 md:gap-3">
                     {product.features.map((f, i) => {
                       // Handle both LocalizedString and plain string features
                       const featureText = typeof f === "string" ? f : f[lang];
                       return (
                         <li
                           key={i}
-                          className="flex items-start gap-4 text-subtext group/item"
+                          className="flex items-start gap-2 md:gap-3 text-subtext group/item bg-background/30 p-2 md:p-3 rounded-xl border border-border/30"
                         >
-                          <span className="mt-1 bg-primary/10 text-primary rounded-lg p-1 group-hover/item:bg-primary group-hover/item:text-black transition-all shadow-sm">
-                            <Check size={14} strokeWidth={3} />
+                          <span className="mt-0.5 bg-primary/10 text-primary rounded-md p-0.5 md:p-1 group-hover/item:bg-primary group-hover/item:text-black transition-all shadow-sm shrink-0">
+                            <Check
+                              size={10}
+                              className="md:w-3.5 md:h-3.5"
+                              strokeWidth={3}
+                            />
                           </span>
-                          <span className="group-hover/item:text-text transition-colors font-medium text-lg leading-relaxed">
+                          <span className="group-hover/item:text-text transition-colors font-medium text-xs md:text-sm lg:text-base leading-snug">
                             {featureText}
                           </span>
                         </li>
@@ -551,40 +558,40 @@ const ProductDetail: React.FC = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-black text-text mb-8 tracking-tight flex items-center gap-3">
-                    <div className="w-1.5 h-8 bg-primary rounded-full"></div>
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-black text-text mb-4 md:mb-6 lg:mb-8 tracking-tight flex items-center gap-2 md:gap-3 mt-6 lg:mt-0">
+                    <div className="w-1 md:w-1.5 h-6 md:h-8 bg-primary rounded-full"></div>
                     {t("technical_specs")}
                   </h3>
-                  <div className="bg-background/50 rounded-4xl border border-border overflow-hidden shadow-inner">
-                    <div className="flex justify-between p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
-                      <span className="text-subtext font-bold uppercase tracking-widest text-[10px] group-hover/row:text-primary transition-colors">
+                  <div className="bg-background/50 rounded-2xl md:rounded-3xl lg:rounded-4xl border border-border overflow-hidden shadow-inner">
+                    <div className="flex justify-between p-3 md:p-4 lg:p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
+                      <span className="text-subtext font-bold uppercase tracking-widest text-[8px] md:text-[10px] group-hover/row:text-primary transition-colors">
                         {t("brand")}
                       </span>
-                      <span className="text-text font-black">
+                      <span className="text-text font-black text-xs md:text-sm lg:text-base">
                         {product.brand}
                       </span>
                     </div>
-                    <div className="flex justify-between p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
-                      <span className="text-subtext font-bold uppercase tracking-widest text-[10px] group-hover/row:text-primary transition-colors">
+                    <div className="flex justify-between p-3 md:p-4 lg:p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
+                      <span className="text-subtext font-bold uppercase tracking-widest text-[8px] md:text-[10px] group-hover/row:text-primary transition-colors">
                         {t("model")}
                       </span>
-                      <span className="text-text font-black">
+                      <span className="text-text font-black text-xs md:text-sm lg:text-base truncate max-w-[60%] text-end">
                         {product.name["en"]}
                       </span>
                     </div>
-                    <div className="flex justify-between p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
-                      <span className="text-subtext font-bold uppercase tracking-widest text-[10px] group-hover/row:text-primary transition-colors">
+                    <div className="flex justify-between p-3 md:p-4 lg:p-6 border-b border-border/50 hover:bg-primary/5 transition-colors group/row">
+                      <span className="text-subtext font-bold uppercase tracking-widest text-[8px] md:text-[10px] group-hover/row:text-primary transition-colors">
                         {t("resolution")}
                       </span>
-                      <span className="text-text font-black tracking-tight">
+                      <span className="text-text font-black tracking-tight text-xs md:text-sm lg:text-base">
                         4K Ultra HD
                       </span>
                     </div>
-                    <div className="flex justify-between p-6 hover:bg-primary/5 transition-colors group/row">
-                      <span className="text-subtext font-bold uppercase tracking-widest text-[10px] group-hover/row:text-primary transition-colors">
+                    <div className="flex justify-between p-3 md:p-4 lg:p-6 hover:bg-primary/5 transition-colors group/row">
+                      <span className="text-subtext font-bold uppercase tracking-widest text-[8px] md:text-[10px] group-hover/row:text-primary transition-colors">
                         {t("connectivity")}
                       </span>
-                      <span className="text-text font-black tracking-tight">
+                      <span className="text-text font-black tracking-tight text-xs md:text-sm lg:text-base">
                         WiFi / Ethernet / USB
                       </span>
                     </div>

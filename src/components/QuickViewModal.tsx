@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ShoppingCart,
-  X,
-  Check,
-  ArrowRight,
-} from "lucide-react";
+import { ShoppingCart, X, Check, ArrowRight } from "lucide-react";
 import { useCart, useStore } from "../store/StoreContext";
 import LazyImage from "./LazyImage";
 
@@ -102,15 +97,20 @@ const QuickViewModal: React.FC = () => {
                 </p>
 
                 <div className="space-y-3 mb-8">
-                  {product.features.slice(0, 3).map((feature, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 text-subtext"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-secondary"></div>
-                      <span>{feature}</span>
-                    </div>
-                  ))}
+                  {product.features.slice(0, 3).map((feature, i) => {
+                    // Handle both string and LocalizedString feature types
+                    const featureText =
+                      typeof feature === "string" ? feature : feature[lang];
+                    return (
+                      <div
+                        key={i}
+                        className="flex items-center gap-3 text-subtext"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+                        <span>{featureText}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
