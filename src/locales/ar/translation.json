@@ -92,6 +92,7 @@
   "bundle.add_all": "شراء الباقة كاملة",
   "bundle.incomplete": "يرجى اختيار جميع المكونات",
   "bundle.added_success": "تمت إضافة الباقة للسلة بنجاح!",
+  "products_available": "منتجات متاحة",
   "maintenance_page": {
     "title": "حجز موعد صيانة",
     "subtitle": "حدد المشكلة واختر الوقت المناسب لزيارة الفني",
