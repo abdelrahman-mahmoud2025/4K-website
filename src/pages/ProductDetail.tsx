@@ -181,7 +181,7 @@ const ProductDetail: React.FC = () => {
           {t("shop")}
         </Link>
         <ChevronRight size={14} className="opacity-30" />
-        <span className="text-text truncate font-black max-w-50">
+        <span className="text-text truncate font-black max-w-30">
           {product.name[lang]}
         </span>
       </div>
