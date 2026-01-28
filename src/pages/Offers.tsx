@@ -1,86 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { useData } from "../store/DataContext";
 import { useTheme } from "../store/ThemeContext";
 import { useSEO } from "../hooks/useSEO";
 import ProductCard from "../components/ProductCard";
-import { Timer, Clock, Flame, Sparkles } from "lucide-react";
-
-const Countdown: React.FC<{ targetDate: string }> = ({ targetDate }) => {
-  const { t } = useTranslation();
-  const { isDark } = useTheme();
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    expired: false,
-  });
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const difference = +new Date(targetDate) - +new Date();
-      if (difference > 0) {
-        return {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-          expired: false,
-        };
-      }
-      return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
-    };
-
-    setTimeLeft(calculateTimeLeft());
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [targetDate]);
-
-  if (timeLeft.expired) {
-    return (
-      <div className="text-red-500 text-sm font-bold flex items-center gap-2">
-        <Clock size={14} />
-        {t("expired")}
-      </div>
-    );
-  }
-
-  const TimeBlock = ({ value, label }: { value: number; label: string }) => (
-    <div className="flex flex-col items-center">
-      <div
-        className={`text-lg font-black tabular-nums px-2 py-1 rounded-lg min-w-10 text-center ${
-          isDark
-            ? "bg-secondary/20 text-secondary"
-            : "bg-secondary/15 text-secondary"
-        }`}
-      >
-        {String(value).padStart(2, "0")}
-      </div>
-      <span
-        className={`text-[10px] uppercase tracking-wide mt-1 ${isDark ? "text-gray-500" : "text-gray-400"}`}
-      >
-        {label}
-      </span>
-    </div>
-  );
-
-  return (
-    <div className="flex items-center gap-2">
-      <TimeBlock value={timeLeft.days} label={t("days_short")} />
-      <span className="text-secondary font-bold text-lg mb-4">:</span>
-      <TimeBlock value={timeLeft.hours} label={t("hours_short")} />
-      <span className="text-secondary font-bold text-lg mb-4">:</span>
-      <TimeBlock value={timeLeft.minutes} label={t("minutes_short")} />
-      <span className="text-secondary font-bold text-lg mb-4">:</span>
-      <TimeBlock value={timeLeft.seconds} label={t("seconds_short")} />
-    </div>
-  );
-};
+import { Timer, Flame, Sparkles } from "lucide-react";
 
 const Offers: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -184,45 +109,9 @@ const Offers: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.4 }}
-                className="flex flex-col"
               >
-                {/* Product Card */}
-                <ProductCard product={product} />
-
-                {/* Countdown Timer - Seamlessly attached below card */}
-                <div
-                  className={`-mt-3 relative z-10 mx-2 rounded-b-2xl p-4 flex flex-col items-center ${
-                    isDark
-                      ? "bg-surface border-x border-b border-border"
-                      : "bg-white border-x border-b border-gray-200 shadow-sm"
-                  }`}
-                >
-                  {product.offerEndsAt ? (
-                    <>
-                      <div
-                        className={`text-[10px] uppercase tracking-widest mb-2 flex items-center gap-1.5 ${
-                          isDark ? "text-gray-500" : "text-gray-400"
-                        }`}
-                      >
-                        <Clock size={10} />
-                        {t("ends_in") || "Ends in"}
-                      </div>
-                      <Countdown targetDate={product.offerEndsAt} />
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-2 py-2">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                      </span>
-                      <span
-                        className={`text-sm font-medium ${isDark ? "text-green-400" : "text-green-600"}`}
-                      >
-                        {t("ongoing_offer") || "Ongoing Offer"}
-                      </span>
-                    </div>
-                  )}
-                </div>
+                {/* Product Card with integrated offer details */}
+                <ProductCard product={product} showOfferDetails={true} />
               </motion.div>
             ))}
           </div>

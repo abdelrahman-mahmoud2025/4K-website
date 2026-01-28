@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -8,372 +8,440 @@ import {
   X,
   Search,
   Heart,
-  ArrowRight,
   Sun,
   Moon,
   ChevronDown,
   Globe,
+  ArrowRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart, useWishlist } from "../store/StoreContext";
 import { useData } from "../store/DataContext";
 import { useTheme } from "../store/ThemeContext";
 import LazyImage from "./LazyImage";
+import { getCategoryInfo } from "../data/categoryConfig";
 
-const Header: React.FC = () => {
+// ────────────────────────────────────────────────
+// Helpers / Sub-components
+// ────────────────────────────────────────────────
+
+const NavLink = ({
+  to,
+  label,
+  isActive,
+  children = null,
+  ...props
+}: {
+  to: string;
+  label: string;
+  isActive: boolean;
+  children?: React.ReactNode;
+  [key: string]: any;
+}) => (
+  <Link
+    to={to}
+    className={`text-xs font-bold uppercase tracking-wide relative group transition-colors ${
+      isActive ? "text-primary" : "text-text/80 hover:text-primary"
+    }`}
+    {...props}
+  >
+    {label}
+    <span
+      className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+        isActive ? "w-full" : "w-0 group-hover:w-full"
+      }`}
+    />
+    {children}
+  </Link>
+);
+
+const DropdownButton = ({
+  label,
+  isOpen,
+  onClick,
+}: {
+  label: string;
+  isOpen: boolean;
+  onClick?: () => void;
+}) => (
+  <button
+    onClick={onClick}
+    className={`flex items-center gap-1 text-xs font-bold uppercase tracking-wide transition-colors ${
+      isOpen ? "text-primary" : "text-text/80 hover:text-primary"
+    }`}
+  >
+    {label}
+    <ChevronDown
+      size={14}
+      className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+    />
+  </button>
+);
+
+const SuggestionSection = ({
+  title,
+  items,
+  renderItem,
+  onClose,
+}: {
+  title: string;
+  items: any[];
+  renderItem: (item: any) => React.ReactNode;
+  onClose?: () => void;
+}) =>
+  items?.length > 0 && (
+    <div className="p-2 border-b border-border/50 last:border-0">
+      <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">
+        {title}
+      </div>
+      {items.map(renderItem)}
+    </div>
+  );
+
+// ────────────────────────────────────────────────
+// Main Component
+// ────────────────────────────────────────────────
+
+const Header = () => {
   const { t, i18n } = useTranslation();
-  const { items } = useCart();
+  const { items: cartItems } = useCart();
   const { items: wishlistItems } = useWishlist();
-  const { search } = useData();
+  const { search, products } = useData();
   const { isDark, toggleTheme } = useTheme();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<any>({
+  const [suggestions, setSuggestions] = useState({
     products: [],
     feeds: [],
+    pages: [],
   });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
+  const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
-  const searchRef = useRef<HTMLDivElement>(null);
-  const mobileSearchRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const searchRef = useRef(null);
 
-  useEffect(() => {
-    document.title = t("app_title");
-  }, [t, i18n.language]);
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const lang = i18n.language;
+  const isArabic = lang === "ar";
 
-  useEffect(() => {
-    setShowMobileSearch(false);
-    setIsMenuOpen(false);
-  }, [location.pathname]);
+  // Dynamic categories & shop dropdown
+  const categories = useMemo(
+    () => [...new Set(products.map((p) => p.category))],
+    [products],
+  );
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      const isOutsideDesktop = searchRef.current && !searchRef.current.contains(target);
-      const isOutsideMobile = mobileSearchRef.current && !mobileSearchRef.current.contains(target);
+  const shopItems = useMemo(
+    () => [
+      { to: "/shop", label: isArabic ? "عرض الكل" : "View All" },
+      ...categories.map((cat) => {
+        const info = getCategoryInfo(cat);
+        return {
+          to: `/shop?category=${cat}`,
+          label: info.name[isArabic ? "ar" : "en"],
+        };
+      }),
+    ],
+    [categories, isArabic],
+  );
 
-      if (isOutsideDesktop && isOutsideMobile) {
-        setShowSuggestions(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (searchQuery.length > 1) {
-        const results = search(searchQuery);
-        setSuggestions({
-          products: results.products.slice(0, 3),
-          feeds: results.feeds.slice(0, 2),
-          pages: results.pages.slice(0, 2),
-        });
-        setShowSuggestions(true);
-      } else {
-        setShowSuggestions(false);
-      }
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery, search]);
-
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isMenuOpen]);
-
-  const toggleLang = () => {
-    const newLang = i18n.language === "ar" ? "en" : "ar";
-    i18n.changeLanguage(newLang);
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setShowSuggestions(false);
-      setIsMenuOpen(false);
-    }
-  };
-
-  const toggleMobileSubmenu = (label: string) => {
-    setMobileSubmenuOpen(mobileSubmenuOpen === label ? null : label);
-  };
-
-  // Navigation Configuration
-  const navItems = [
+  const navConfig = [
     { to: "/", label: "home" },
-    { to: "/shop", label: "shop" },
+    {
+      label: "shop",
+      dropdown: shopItems.map((item) => ({ ...item, isTranslated: true })),
+    },
     { to: "/offers", label: "offers" },
-    { 
+    {
       label: "tools",
       dropdown: [
         { to: "/patcher", label: "patcher" },
         { to: "/feeds", label: "feeds" },
         { to: "/downloads", label: "downloads" },
         { to: "/bundle", label: "bundle" },
-      ]
+      ],
     },
     { to: "/branches", label: "branches.tab_branches" },
     { to: "/about", label: "about_me" },
   ];
 
+  // ─── Effects ─────────────────────────────────────
+
+  useEffect(() => {
+    document.title = t("app_title");
+  }, [t, lang]);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setShowMobileSearch(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (isMenuOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchQuery.trim().length < 2) {
+        setShowSuggestions(false);
+        return;
+      }
+      const res = search(searchQuery);
+      setSuggestions({
+        products: res.products.slice(0, 3),
+        feeds: res.feeds.slice(0, 2),
+        pages: res.pages?.slice(0, 2) ?? [],
+      });
+      setShowSuggestions(true);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, search]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  // ─── Handlers ────────────────────────────────────
+
+  const toggleLang = () => i18n.changeLanguage(isArabic ? "en" : "ar");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    setShowSuggestions(false);
+    setShowMobileSearch(false);
+    setIsMenuOpen(false);
+  };
+
+  const SuggestionItem = (item) => (
+    <Link
+      key={item.id ?? item.to}
+      to={item.path ?? item.to ?? `/product/${item.id}`}
+      onClick={() => {
+        setShowSuggestions(false);
+        setShowMobileSearch(false);
+      }}
+      className="flex items-center gap-3 p-2 hover:bg-background rounded-lg transition-colors group"
+    >
+      {item.image ? (
+        <div className="w-8 h-8 bg-background border border-border rounded p-0.5 shrink-0">
+          <LazyImage
+            src={item.image}
+            className="w-full h-full object-contain"
+          />
+        </div>
+      ) : (
+        <div className="w-8 h-8 bg-background border border-border rounded p-0.5 shrink-0 flex items-center justify-center">
+          <ArrowRight size={14} className="text-primary" />
+        </div>
+      )}
+      <div className="grow min-w-0">
+        <div className="text-text text-sm font-medium truncate group-hover:text-primary">
+          {item.title?.[isArabic ? "ar" : "en"] ??
+            item.name?.[isArabic ? "ar" : "en"] ??
+            item.label}
+        </div>
+      </div>
+      {item.price && (
+        <div className="text-primary font-bold text-xs whitespace-nowrap">
+          {item.price} <span className="text-[9px]">{t("currency")}</span>
+        </div>
+      )}
+    </Link>
+  );
+
+  // ─── Render ──────────────────────────────────────
+
+  const toggleIcon = isDark ? <Sun size={18} /> : <Moon size={18} />;
+  const langText = isArabic ? "EN" : "عربي";
+
   return (
-    <header dir="ltr" className="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-border transition-all duration-300 shadow-sm">
+    <header
+      dir="ltr"
+      className="bg-surface/95 backdrop-blur-md sticky top-0 z-50 border-b border-border shadow-sm"
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 gap-4">
+          {/* Mobile menu btn */}
           <button
-            className="lg:hidden text-text hover:text-primary transition-colors p-1"
+            className="lg:hidden text-text hover:text-primary p-1"
             onClick={() => setIsMenuOpen(true)}
-            aria-label="Open Menu"
           >
             <Menu />
           </button>
 
+          {/* Logo */}
           <Link
             to="/"
-            className="text-2xl font-bold text-primary flex items-center gap-1 italic tracking-tighter hover:opacity-90 transition-opacity whitespace-nowrap"
+            className="text-2xl font-bold text-primary flex items-center gap-1 italic tracking-tighter hover:opacity-90"
           >
             <span className="text-text">4K</span>
             <span>STORE</span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-6">
-            {navItems.map((item, index) => (
-              <div 
-                key={index} 
-                className="relative group"
-                onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                {item.dropdown ? (
-                  <button
-                    aria-label={`Open ${t(item.label)} Menu`}
-                    className={`flex items-center gap-1 text-xs font-bold uppercase tracking-wide transition-colors cursor-pointer ${activeDropdown === item.label ? "text-primary" : "text-text/80 hover:text-primary"}`}
-                  >
-                    {t(item.label)}
-                    <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === item.label ? "rotate-180" : ""}`} />
-                  </button>
-                ) : (
-                  <Link
-                    to={item.to!}
-                    className={`text-xs font-bold uppercase tracking-wide relative group transition-colors ${location.pathname === item.to ? "text-primary" : "text-text/80 hover:text-primary"}`}
-                  >
-                    {t(item.label)}
-                    <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${location.pathname === item.to ? "w-full" : "w-0 group-hover:w-full"}`}
-                    ></span>
-                  </Link>
-                )}
+            {navConfig.map((item, i) => {
+              const isActive = location.pathname === item.to;
+              const label = t(item.label);
 
-                {/* Dropdown Menu */}
-                <AnimatePresence>
-                  {item.dropdown && activeDropdown === item.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-xl overflow-hidden z-50"
-                    >
-                      {item.dropdown.map((subItem) => (
-                        <Link
-                          key={subItem.to}
-                          to={subItem.to}
-                          className="block px-4 py-3 text-sm font-medium text-text hover:bg-primary/10 hover:text-primary transition-colors border-b border-border/50 last:border-0"
-                        >
-                          {t(subItem.label)}
-                        </Link>
-                      ))}
-                    </motion.div>
+              return (
+                <div
+                  key={i}
+                  className="relative group"
+                  onMouseEnter={() =>
+                    item.dropdown && setActiveDropdown(item.label)
+                  }
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  {item.dropdown ? (
+                    <DropdownButton
+                      label={label}
+                      isOpen={activeDropdown === item.label}
+                    />
+                  ) : (
+                    <NavLink to={item.to} label={label} isActive={isActive} />
                   )}
-                </AnimatePresence>
-              </div>
-            ))}
+
+                  <AnimatePresence>
+                    {item.dropdown && activeDropdown === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-full left-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-xl z-50"
+                      >
+                        {item.dropdown.map((sub) => (
+                          <Link
+                            key={sub.to}
+                            to={sub.to}
+                            className="block px-4 py-3 text-sm font-medium text-text hover:bg-primary/10 hover:text-primary border-b border-border/50 last:border-0"
+                          >
+                            {sub.isTranslated ? sub.label : t(sub.label)}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </nav>
 
-          {/* Search Bar */}
+          {/* Desktop Search */}
           <div className="hidden md:block grow max-w-xl mx-4" ref={searchRef}>
-            <form onSubmit={handleSearch} className="relative group">
+            <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
                 placeholder={t("search_placeholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-background text-text text-sm rounded-full pl-10 pr-10 py-2 border border-border focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all shadow-inner placeholder-subtext"
+                className="w-full bg-background text-text text-sm rounded-full pl-10 pr-10 py-2 border border-border focus:border-primary focus:ring-1 focus:ring-primary/50 shadow-inner placeholder-subtext"
               />
               <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-subtext group-focus-within:text-primary transition-colors"
-                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-subtext"
+                size={12}
               />
               {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => {
-                    setSearchQuery("");
-                    setShowSuggestions(false);
-                  }}
+                  onClick={() => setSearchQuery("")}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-subtext hover:text-text"
-                  aria-label="Clear Search"
                 >
                   <X size={14} />
                 </button>
               )}
             </form>
 
-            {showSuggestions &&
-              (suggestions.products.length > 0 ||
-                suggestions.feeds.length > 0 || suggestions.pages?.length > 0) && (
-                <div className="absolute w-100 bg-surface border border-border rounded-xl shadow-2xl z-50 mt-2 overflow-hidden animate-fade-in-up">
-                  {suggestions.pages?.length > 0 && (
-                    <div className="p-2 border-b border-border/50">
-                      <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">
-                        Pages
-                      </div>
-                      {suggestions.pages.map((page: any) => (
-                        <Link
-                          key={page.id}
-                          to={page.path}
-                          onClick={() => setShowSuggestions(false)}
-                          className="flex items-center gap-3 p-2 hover:bg-background rounded-lg transition-colors group"
-                        >
-                          <div className="w-8 h-8 bg-background border border-border rounded p-0.5 shrink-0 flex items-center justify-center">
-                            <ArrowRight size={14} className="text-primary" />
-                          </div>
-                          <div className="grow min-w-0">
-                            <div className="text-text text-sm font-medium truncate group-hover:text-primary transition-colors">
-                              {page.title[i18n.language === "ar" ? "ar" : "en"]}
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-
-                  {suggestions.products.length > 0 && (
-                    <div className="p-2">
-                      <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">
-                        {t("shop")}
-                      </div>
-                      {suggestions.products.map((p: any) => (
-                        <Link
-                          key={p.id}
-                          to={`/product/${p.id}`}
-                          onClick={() => setShowSuggestions(false)}
-                          className="flex items-center gap-3 p-2 hover:bg-background rounded-lg transition-colors group"
-                        >
-                          <div className="w-8 h-8 bg-background border border-border rounded p-0.5 shrink-0">
-                            <LazyImage
-                              src={p.image}
-                              className="w-full h-full object-contain"
-                            />
-                          </div>
-                          <div className="grow min-w-0">
-                            <div className="text-text text-sm font-medium truncate group-hover:text-primary transition-colors">
-                              {p.name[i18n.language === "ar" ? "ar" : "en"]}
-                            </div>
-                          </div>
-                          <div className="text-primary font-bold text-xs whitespace-nowrap">
-                            {p.price}{" "}
-                            <span className="text-[9px]">{t("currency")}</span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-
-                  <div
-                    className="bg-primary/10 p-2 text-center text-primary text-xs font-bold cursor-pointer hover:bg-primary/20 transition-colors"
-                    onClick={(e) => handleSearch(e as any)}
+            <AnimatePresence>
+              {showSuggestions &&
+                (suggestions.products.length || suggestions.pages.length) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="absolute w-full bg-surface border border-border rounded-xl shadow-2xl z-50 mt-2 overflow-hidden"
                   >
-                    {t("view_all_results")}
-                  </div>
-                </div>
-              )}
+                    <SuggestionSection
+                      title="Pages"
+                      items={suggestions.pages}
+                      renderItem={SuggestionItem}
+                    />
+                    <SuggestionSection
+                      title={t("shop")}
+                      items={suggestions.products}
+                      renderItem={SuggestionItem}
+                    />
+
+                    <div
+                      className="bg-primary/10 p-2 text-center text-primary text-xs font-bold cursor-pointer hover:bg-primary/20"
+                      onClick={handleSearch}
+                    >
+                      {t("view_all_results")}
+                    </div>
+                  </motion.div>
+                )}
+            </AnimatePresence>
           </div>
 
+          {/* Actions */}
           <div className="flex items-center gap-3">
-            <Link
-              to="/wishlist"
-              className="md:hidden relative text-text/80 hover:text-primary transition-colors group"
+            <button
+              className="md:hidden"
+              onClick={() => setShowMobileSearch((v) => !v)}
             >
+              <Search size={22} className="text-text/80 hover:text-primary" />
+            </button>
+
+            <Link to="/wishlist" className="relative hidden md:block">
               <Heart
                 size={22}
-                className="group-hover:scale-110 transition-transform"
+                className="text-text/80 hover:text-primary group-hover:scale-110 transition-transform"
               />
               {wishlistItems.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold h-4 w-4 flex items-center justify-center rounded-full animate-bounce-short">
+                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] h-4 w-4 rounded-full flex items-center justify-center animate-bounce-short">
                   {wishlistItems.length}
                 </span>
               )}
             </Link>
 
             <button
-              className="md:hidden text-text/80 hover:text-primary transition-colors p-1"
-              onClick={() => setShowMobileSearch(!showMobileSearch)}
-              aria-label="Toggle Search"
-            >
-              <Search size={22} />
-            </button>
-
-            <button
               onClick={toggleTheme}
-              className="p-1.5 rounded-full hover:bg-background text-text/80 transition-colors hidden sm:block"
-              title={
-                isDark ? t("switch_to_light_mode") : t("switch_to_dark_mode")
-              }
-              aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              className="hidden sm:block p-1.5 rounded-full hover:bg-background"
             >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              {toggleIcon}
             </button>
 
             <button
               onClick={toggleLang}
-              className="text-xs font-bold text-text/80 hover:text-primary hidden sm:block border border-border px-2 py-1 rounded hover:border-primary transition-all"
-              aria-label="Switch Language"
+              className="hidden sm:block text-xs font-bold border border-border px-2 py-1 rounded hover:border-primary"
             >
-              {i18n.language === "ar" ? "EN" : "عربي"}
+              {langText}
             </button>
 
-            <Link
-              to="/wishlist"
-              className="hidden md:block relative text-text/80 hover:text-primary transition-colors group"
-            >
-              <Heart
-                size={22}
-                className="group-hover:scale-110 transition-transform"
-              />
-              {wishlistItems.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold h-4 w-4 flex items-center justify-center rounded-full animate-bounce-short">
-                  {wishlistItems.length}
-                </span>
-              )}
-            </Link>
-
-            <Link
-              to="/cart"
-              className="relative text-text/80 hover:text-primary transition-colors group"
-            >
+            <Link to="/cart" className="relative">
               <ShoppingCart
                 size={22}
-                className="group-hover:scale-110 transition-transform"
+                className="text-text/80 hover:text-primary group-hover:scale-110 transition-transform"
               />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-secondary text-white text-[9px] font-bold h-4 w-4 flex items-center justify-center rounded-full animate-bounce-short">
+                <span className="absolute -top-1.5 -right-1.5 bg-secondary text-white text-[9px] h-4 w-4 rounded-full flex items-center justify-center animate-bounce-short">
                   {cartCount}
                 </span>
               )}
@@ -382,245 +450,223 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
+      {/* Mobile Search */}
       <AnimatePresence>
         {showMobileSearch && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
             className="md:hidden border-t border-border bg-surface overflow-hidden"
           >
             <div className="p-4">
               <form onSubmit={handleSearch} className="relative">
                 <input
                   autoFocus
-                  type="text"
-                  placeholder={t("search_placeholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-background text-text text-sm rounded-xl px-4 py-3 border border-border focus:border-primary focus:outline-none shadow-inner"
+                  placeholder={t("search_placeholder")}
+                  className="w-full bg-background text-text rounded-xl px-4 py-3 border border-border focus:border-primary shadow-inner"
                 />
                 <button
                   type="button"
                   onClick={() => {
-                     setSearchQuery("");
-                     if (!searchQuery) setShowMobileSearch(false);
+                    setSearchQuery("");
+                    if (!searchQuery) setShowMobileSearch(false);
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-subtext hover:text-primary p-1"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-subtext hover:text-primary"
                 >
                   {searchQuery ? <X size={18} /> : <Search size={18} />}
                 </button>
               </form>
 
-              {/* Mobile Suggestions */}
-              {showSuggestions &&
-                (suggestions.products.length > 0 ||
-                  suggestions.feeds.length > 0 || suggestions.pages?.length > 0) && (
-                  <div className="mt-2 bg-background/50 border border-border rounded-xl shadow-lg overflow-hidden animate-fade-in-up">
-                    {suggestions.pages?.length > 0 && (
-                      <div className="p-2 border-b border-border/50">
-                        <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">
-                          Pages
-                        </div>
-                        {suggestions.pages.map((page: any) => (
-                          <Link
-                            key={page.id}
-                            to={page.path}
-                            onClick={() => setShowMobileSearch(false)}
-                            className="flex items-center gap-3 p-2 hover:bg-surface rounded-lg transition-colors group"
-                          >
-                            <div className="w-8 h-8 bg-surface border border-border rounded p-0.5 shrink-0 flex items-center justify-center">
-                              <ArrowRight size={14} className="text-primary" />
-                            </div>
-                            <div className="grow min-w-0">
-                              <div className="text-text text-sm font-medium truncate group-hover:text-primary transition-colors">
-                                {page.title[i18n.language === "ar" ? "ar" : "en"]}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-
-                    {suggestions.products.length > 0 && (
-                      <div className="p-2">
-                        <div className="text-[10px] font-bold text-subtext uppercase px-3 py-1">
-                          {t("shop")}
-                        </div>
-                        {suggestions.products.map((p: any) => (
-                          <Link
-                            key={p.id}
-                            to={`/product/${p.id}`}
-                            onClick={() => setShowMobileSearch(false)}
-                            className="flex items-center gap-3 p-2 hover:bg-surface rounded-lg transition-colors group"
-                          >
-                            <div className="w-8 h-8 bg-surface border border-border rounded p-0.5 shrink-0">
-                              <LazyImage
-                                src={p.image}
-                                className="w-full h-full object-contain"
-                              />
-                            </div>
-                            <div className="grow min-w-0">
-                              <div className="text-text text-sm font-medium truncate group-hover:text-primary transition-colors">
-                                {p.name[i18n.language === "ar" ? "ar" : "en"]}
-                              </div>
-                            </div>
-                            <div className="text-primary font-bold text-xs whitespace-nowrap">
-                              {p.price}{" "}
-                              <span className="text-[9px]">{t("currency")}</span>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+              <AnimatePresence>
+                {showSuggestions && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-3 bg-background/50 border border-border rounded-xl shadow-lg overflow-hidden"
+                  >
+                    <SuggestionSection
+                      title="Pages"
+                      items={suggestions.pages}
+                      renderItem={SuggestionItem}
+                    />
+                    <SuggestionSection
+                      title={t("shop")}
+                      items={suggestions.products}
+                      renderItem={SuggestionItem}
+                    />
 
                     <div
-                      className="bg-primary/10 p-3 text-center text-primary text-xs font-bold cursor-pointer hover:bg-primary/20 transition-colors"
-                      onClick={(e) => handleSearch(e as any)}
+                      className="bg-primary/10 p-3 text-center text-primary text-xs font-bold cursor-pointer hover:bg-primary/20"
+                      onClick={handleSearch}
                     >
                       {t("view_all_results")}
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer – keep almost same logic but cleaner */}
       {createPortal(
         <AnimatePresence>
           {isMenuOpen && (
             <>
-              {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
                 className="fixed inset-0 bg-black/60 backdrop-blur-sm z-99 lg:hidden"
                 onClick={() => setIsMenuOpen(false)}
               />
-              
-              {/* Drawer Panel */}
+
               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-surface z-100 shadow-2xl flex flex-col lg:hidden"
+                transition={{ type: "spring", damping: 28, stiffness: 220 }}
+                className="fixed inset-y-0 left-0 w-[85%] max-w-xs bg-surface z-100 shadow-2xl flex flex-col lg:hidden"
               >
-                {/* Drawer Header */}
+                {/* Header */}
                 <div className="p-4 border-b border-border flex items-center justify-between">
                   <Link
                     to="/"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-xl font-bold text-primary italic tracking-tighter"
+                    className="text-xl font-bold text-primary italic"
                   >
-                     <span className="text-text">4K</span>
-                     <span>STORE</span>
+                    <span className="text-text">4K</span>
+                    <span>STORE</span>
                   </Link>
-                  <button
-                    onClick={() => setIsMenuOpen(false)}
-                    className="p-1 text-text hover:text-primary transition-colors"
-                  >
+                  <button onClick={() => setIsMenuOpen(false)}>
                     <X size={24} />
                   </button>
                 </div>
 
-                {/* Drawer Content */}
-                <div className="flex-1 overflow-y-auto p-4 scrollbar-hide">
-                  <div className="flex flex-col gap-1">
-                    {navItems.map((item, index) => (
-                      <React.Fragment key={index}>
-                        {item.dropdown ? (
-                          <div className="border-b border-border/40 last:border-0">
-                            <button
-                              onClick={() => toggleMobileSubmenu(item.label)}
-                              className={`w-full flex items-center justify-between px-3 py-3 rounded-lg font-medium transition-colors ${mobileSubmenuOpen === item.label ? "text-primary bg-primary/5" : "text-text hover:bg-background"}`}
+                {/* Links */}
+                <div className="flex-1 overflow-y-auto p-4">
+                  {navConfig.map((item, i) =>
+                    item.dropdown ? (
+                      <div key={i} className="border-b border-border/40">
+                        <button
+                          onClick={() =>
+                            setMobileSubmenu((v) =>
+                              v === item.label ? null : item.label,
+                            )
+                          }
+                          className={`w-full flex justify-between items-center px-3 py-3 rounded-lg font-medium ${
+                            mobileSubmenu === item.label
+                              ? "text-primary bg-primary/5"
+                              : "hover:bg-background"
+                          }`}
+                        >
+                          <span className="uppercase text-sm tracking-wide">
+                            {t(item.label)}
+                          </span>
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform ${mobileSubmenu === item.label ? "rotate-180" : ""}`}
+                          />
+                        </button>
+
+                        <AnimatePresence>
+                          {mobileSubmenu === item.label && (
+                            <motion.div
+                              initial={{ height: 0 }}
+                              animate={{ height: "auto" }}
+                              exit={{ height: 0 }}
+                              className="overflow-hidden"
                             >
-                              <span className="uppercase text-sm tracking-wide">{t(item.label)}</span>
-                              <ChevronDown
-                                size={16}
-                                className={`transition-transform duration-200 ${mobileSubmenuOpen === item.label ? "rotate-180" : ""}`}
-                              />
-                            </button>
-                            
-                            <AnimatePresence>
-                              {mobileSubmenuOpen === item.label && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: "auto", opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="pl-4 pr-2 pb-2 space-y-1">
-                                    {item.dropdown.map((subItem) => (
-                                      <Link
-                                        key={subItem.to}
-                                        to={subItem.to}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        className={`block px-3 py-2.5 rounded-md text-sm transition-colors ${location.pathname === subItem.to ? "text-primary bg-primary/10 font-bold" : "text-text/70 hover:text-primary hover:bg-background"}`}
-                                      >
-                                        {t(subItem.label)}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        ) : (
-                          <Link
-                            to={item.to!}
-                            onClick={() => setIsMenuOpen(false)}
-                            className={`flex items-center justify-between px-3 py-3 rounded-lg font-medium transition-colors border-b border-border/40 last:border-0 ${location.pathname === item.to ? "text-primary bg-primary/5" : "text-text hover:bg-background"}`}
-                          >
-                            <span className="uppercase text-sm tracking-wide">{t(item.label)}</span>
-                            <ArrowRight size={16} className={`opacity-50 ${location.pathname === item.to ? "text-primary opacity-100" : ""}`} />
-                          </Link>
-                        )}
-                      </React.Fragment>
-                    ))}
-                    
-                    <Link
-                      to="/wishlist"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-3 px-3 py-3 rounded-lg font-medium text-text hover:text-primary hover:bg-background transition-colors border-b border-border/40"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Heart size={18} /> 
-                        <span className="uppercase text-sm tracking-wide">{t("wishlist")}</span>
+                              <div className="pl-6 pr-4 py-2 space-y-1">
+                                {item.dropdown.map((sub) => (
+                                  <Link
+                                    key={sub.to}
+                                    to={sub.to}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className={`block px-3 py-2.5 rounded-md text-sm ${
+                                      location.pathname === sub.to
+                                        ? "text-primary bg-primary/10 font-bold"
+                                        : "text-text/70 hover:text-primary hover:bg-background"
+                                    }`}
+                                  >
+                                    {sub.isTranslated
+                                      ? sub.label
+                                      : t(sub.label)}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-                    </Link>
-                  </div>
+                    ) : (
+                      <Link
+                        key={i}
+                        to={item.to}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex justify-between items-center px-3 py-3 rounded-lg border-b border-border/40 font-medium ${
+                          location.pathname === item.to
+                            ? "text-primary bg-primary/5"
+                            : "hover:bg-background"
+                        }`}
+                      >
+                        <span className="uppercase text-sm tracking-wide">
+                          {t(item.label)}
+                        </span>
+                        <ArrowRight
+                          size={16}
+                          className={
+                            location.pathname === item.to
+                              ? "text-primary"
+                              : "opacity-50"
+                          }
+                        />
+                      </Link>
+                    ),
+                  )}
+
+                  <Link
+                    to="/wishlist"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center gap-3 px-3 py-3 rounded-lg hover:text-primary hover:bg-background border-b border-border/40"
+                  >
+                    <Heart size={18} />
+                    <span className="uppercase text-sm tracking-wide">
+                      {t("wishlist")}
+                    </span>
+                  </Link>
                 </div>
 
-                {/* Drawer Footer */}
-                <div className="p-4 border-t border-border bg-background/50 flex items-center justify-between gap-4">
-                   <button
+                {/* Footer buttons */}
+                <div className="p-4 border-t border-border bg-background/50 flex gap-3">
+                  <button
                     onClick={toggleTheme}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface border border-border text-text hover:border-primary hover:text-primary transition-all flex-1 justify-center"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-border hover:border-primary hover:text-primary"
                   >
-                    {isDark ? <Sun size={18} /> : <Moon size={18} />}
-                    <span className="text-xs font-bold">{isDark ? "Light" : "Dark"}</span>
+                    {toggleIcon}
+                    <span className="text-xs font-bold">
+                      {isDark ? "Light" : "Dark"}
+                    </span>
                   </button>
-
                   <button
                     onClick={toggleLang}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface border border-border text-text hover:border-primary hover:text-primary transition-all flex-1 justify-center"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-border hover:border-primary hover:text-primary"
                   >
                     <Globe size={18} />
-                    <span className="text-xs font-bold">{i18n.language === "ar" ? "English" : "عربي"}</span>
+                    <span className="text-xs font-bold">
+                      {langText === "EN" ? "English" : "عربي"}
+                    </span>
                   </button>
                 </div>
               </motion.div>
             </>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
     </header>
   );

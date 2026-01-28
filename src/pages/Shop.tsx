@@ -17,11 +17,13 @@ import {
   ChevronUp,
   Store,
   Sparkles,
+  LayoutGrid,
 } from "lucide-react";
 import { useData } from "../store/DataContext";
 import { useCompare } from "../store/StoreContext";
 import { useSEO } from "../hooks/useSEO";
 import ProductCard from "../components/ProductCard";
+import { getCategoryInfo } from "../data/categoryConfig";
 
 // Helper function to categorize a feature string into a group
 const categorizeFeature = (feature: string): string => {
@@ -434,6 +436,75 @@ const Shop: React.FC = () => {
         </div>
       </div>
 
+      {/* Category Grid Selector */}
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <LayoutGrid size={18} className="text-primary" />
+          <h2 className="text-lg font-bold text-text">
+            {t("browse_by_category")}
+          </h2>
+        </div>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          {/* All Products Card */}
+          <button
+            onClick={() => {
+              setCategoryFilters([]);
+              setSearchParams({});
+            }}
+            className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all duration-300 group hover:scale-105 ${
+              categoryFilters.length === 0
+                ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
+                : "bg-surface border-border text-text hover:border-primary hover:bg-primary/5"
+            }`}
+          >
+            <LayoutGrid
+              size={24}
+              className={
+                categoryFilters.length === 0
+                  ? "text-black"
+                  : "text-primary group-hover:scale-110 transition-transform"
+              }
+            />
+            <span className="text-xs font-bold text-center leading-tight">
+              {i18n.language === "ar" ? "الكل" : "All"}
+            </span>
+          </button>
+
+          {/* Category Cards */}
+          {categories.map((cat) => {
+            const catInfo = getCategoryInfo(cat);
+            const IconComponent = catInfo.icon;
+            const isActive = categoryFilters.includes(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => {
+                  setCategoryFilters([cat]);
+                  setSearchParams({ category: cat });
+                }}
+                className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all duration-300 group hover:scale-105 ${
+                  isActive
+                    ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
+                    : "bg-surface border-border text-text hover:border-primary hover:bg-primary/5"
+                }`}
+              >
+                <IconComponent
+                  size={24}
+                  className={
+                    isActive
+                      ? "text-black"
+                      : "text-primary group-hover:scale-110 transition-transform"
+                  }
+                />
+                <span className="text-xs font-bold text-center leading-tight">
+                  {catInfo.name[i18n.language === "ar" ? "ar" : "en"]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* DESKTOP FILTERS (Row) */}
       <div className="hidden md:block mb-10 relative z-40">
         <div className="bg-surface/30 backdrop-blur-sm border border-border rounded-2xl p-4 flex flex-col gap-4">
@@ -441,23 +512,6 @@ const Shop: React.FC = () => {
             <div className="text-xs font-black text-subtext uppercase tracking-widest mr-2 flex items-center gap-2">
               <Filter size={14} className="text-primary" /> {t("filters")}
             </div>
-
-            {/* Category Filter */}
-            <FilterDropdown
-              title={t("category")}
-              activeCount={categoryFilters.length}
-            >
-              <div className="space-y-1">
-                {categories.map((cat) => (
-                  <FilterCheckbox
-                    key={cat}
-                    label={t(`categories.${cat}`) || cat}
-                    checked={categoryFilters.includes(cat)}
-                    onChange={() => toggleFilter(setCategoryFilters, cat)}
-                  />
-                ))}
-              </div>
-            </FilterDropdown>
 
             {/* Brand Filter */}
             <FilterDropdown
@@ -501,8 +555,7 @@ const Shop: React.FC = () => {
             </FilterDropdown>
 
             {/* Clear Button */}
-            {(categoryFilters.length > 0 ||
-              brandFilters.length > 0 ||
+            {(brandFilters.length > 0 ||
               featureFilters.length > 0 ||
               priceRange < 10000) && (
               <button

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useData } from "../store/DataContext";
@@ -20,6 +20,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import LazyImage from "../components/LazyImage";
+import { getCategoryInfo } from "../data/categoryConfig";
 
 const OffersBar: React.FC = () => {
   const { t } = useTranslation();
@@ -86,6 +87,12 @@ const Home: React.FC = () => {
   const featuredProducts = products
     .filter((p) => p.isOffer || p.rating > 4.5)
     .slice(0, 4);
+
+  // Extract unique categories from products dynamically
+  const categories = useMemo(
+    () => Array.from(new Set(products.map((p) => p.category))),
+    [products],
+  );
 
   // SEO Meta Tags
   useSEO({
@@ -283,50 +290,56 @@ const Home: React.FC = () => {
 
       {/* Categories Highlights */}
       <section className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              id: "receivers",
-              icon: <Tv size={48} />,
-              label: t("categories.receivers"),
-              desc: "4K, Android, Sunplus",
-            },
-            {
-              id: "servers",
-              icon: <Server size={48} />,
-              label: t("categories.servers"),
-              desc: "Forever, Nashare, CCCAM",
-            },
-            {
-              id: "accessories",
-              icon: <Wifi size={48} />,
-              label: t("categories.accessories"),
-              desc: "LNBs, WiFi Adapters",
-            },
-          ].map((cat) => (
-            <Link
-              key={cat.id}
-              to={`/shop?category=${cat.id}`}
-              className="group relative overflow-hidden bg-surface/60 backdrop-blur-sm rounded-[2.5rem] p-10 border border-border hover:border-primary transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-2"
-            >
-              <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-all duration-700"></div>
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-black text-text tracking-tight mb-3">
+            {i18n.language === "ar" ? "تصفح حسب التصنيف" : "Browse by Category"}
+          </h2>
+          <p className="text-subtext">
+            {i18n.language === "ar"
+              ? "اختر التصنيف المناسب لك"
+              : "Choose the category that suits you"}
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {categories.map((cat) => {
+            const catInfo = getCategoryInfo(cat);
+            const IconComponent = catInfo.icon;
+            return (
+              <Link
+                key={cat}
+                to={`/shop?category=${cat}`}
+                className="group relative overflow-hidden bg-surface/60 backdrop-blur-sm rounded-3xl p-6 border border-border hover:border-primary transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-2 text-center"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-8 -mt-8 blur-2xl group-hover:bg-primary/10 transition-all duration-700"></div>
 
-              <div className="relative z-10">
-                <div className="inline-flex items-center justify-center p-5 bg-background rounded-2xl text-subtext group-hover:text-primary group-hover:bg-primary/5 transition-all duration-500 transform group-hover:scale-110 mb-8 border border-border group-hover:border-primary/20">
-                  {cat.icon}
+                <div className="relative z-10">
+                  <div className="inline-flex items-center justify-center p-4 bg-background rounded-2xl text-subtext group-hover:text-primary group-hover:bg-primary/5 transition-all duration-500 transform group-hover:scale-110 mb-4 border border-border group-hover:border-primary/20">
+                    <IconComponent size={32} />
+                  </div>
+                  <h3 className="text-lg font-bold text-text mb-1 tracking-tight">
+                    {catInfo.name[i18n.language === "ar" ? "ar" : "en"]}
+                  </h3>
+                  {catInfo.description && (
+                    <p className="text-subtext text-xs opacity-70">
+                      {
+                        catInfo.description[
+                          i18n.language === "ar" ? "ar" : "en"
+                        ]
+                      }
+                    </p>
+                  )}
                 </div>
-                <h3 className="text-3xl font-black text-text mb-3 tracking-tight">
-                  {cat.label}
-                </h3>
-                <p className="text-subtext text-lg mb-8 leading-relaxed opacity-80">
-                  {cat.desc}
-                </p>
-                <span className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all uppercase tracking-widest bg-primary/10 px-4 py-2 rounded-full border border-primary/20 group-hover:bg-primary group-hover:text-black">
-                  {t("view_details")} <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
+        </div>
+        <div className="text-center mt-8">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
+          >
+            {t("view_all_products")} <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
 

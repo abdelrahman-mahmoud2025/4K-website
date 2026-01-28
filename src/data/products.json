@@ -287,5 +287,431 @@
   "inStock": true,
   "isOffer": false,
   "createdAt": "2026-01-25T04:00:00Z"
+},
+
+{
+  "id": "lnb-truman-1port-01",
+  "name": {
+    "ar": "LNB ترومان 1 مخرج",
+    "en": "TRUMAN LNB 1 PORT"
+  },
+  "price": 90,
+  "category": "lnb",
+  "subcategory": "1-port",
+  "brand": "TRUMAN",
+  "image": "/products/00000186-PHOTO-2026-01-28-10-21-59.jpg",
+  "images": [
+    "/products/00000186-PHOTO-2026-01-28-10-21-59.jpg",
+    "/products/00000187-PHOTO-2026-01-28-10-21-59.jpg",
+    "/products/00000188-PHOTO-2026-01-28-10-21-59.jpg"
+  ],
+  "description": {
+    "ar": "وحدة LNB ترومان بمخرج واحد عالية الجودة لاستقبال إشارة الستالايت بوضوح تام.",
+    "en": "High-quality TRUMAN LNB with 1 port for clear satellite signal reception."
+  },
+  "features": [
+    { "ar": "ماركة ترومان الأصلية", "en": "Original TRUMAN Brand" },
+    { "ar": "مخرج واحد", "en": "1 Output Port" },
+    { "ar": "استقبال إشارة قوي", "en": "Strong Signal Reception" },
+    { "ar": "سهولة التركيب", "en": "Easy Installation" }
+  ],
+  "rating": 4.5,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:21:59Z"
+},
+
+{
+  "id": "lnb-truman-2port-02",
+  "name": {
+    "ar": "LNB ترومان 2 مخرج",
+    "en": "TRUMAN LNB 2 PORT"
+  },
+  "price": 150,
+  "category": "lnb",
+  "subcategory": "2-port",
+  "brand": "TRUMAN",
+  "image": "/products/00000190-PHOTO-2026-01-28-10-23-01.jpg",
+  "images": [
+    "/products/00000190-PHOTO-2026-01-28-10-23-01.jpg",
+    "/products/00000191-PHOTO-2026-01-28-10-23-20.jpg",
+    "/products/00000192-PHOTO-2026-01-28-10-23-42.jpg"
+  ],
+  "description": {
+    "ar": "وحدة LNB ترومان بمخرجين لتوصيل جهازين ريسيفر على نفس الطبق.",
+    "en": "TRUMAN LNB with 2 ports to connect two receivers on the same dish."
+  },
+  "features": [
+    { "ar": "ماركة ترومان الأصلية", "en": "Original TRUMAN Brand" },
+    { "ar": "مخرجين للتوصيل", "en": "2 Output Ports" },
+    { "ar": "استقبال إشارة قوي", "en": "Strong Signal Reception" },
+    { "ar": "مناسب لأكثر من رسيفر", "en": "Suitable for Multiple Receivers" }
+  ],
+  "rating": 4.6,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:23:01Z"
+},
+
+{
+  "id": "lnb-4port-03",
+  "name": {
+    "ar": "LNB 4 مخارج",
+    "en": "LNB 4 PORT"
+  },
+  "price": 225,
+  "category": "lnb",
+  "subcategory": "4-port",
+  "brand": "Generic",
+  "image": "/products/00000193-PHOTO-2026-01-28-10-26-34.jpg",
+  "images": [
+    "/products/00000193-PHOTO-2026-01-28-10-26-34.jpg"
+  ],
+  "description": {
+    "ar": "وحدة LNB بأربعة مخارج لتوصيل حتى 4 أجهزة ريسيفر على نفس الطبق.",
+    "en": "LNB with 4 output ports to connect up to 4 receivers on the same dish."
+  },
+  "features": [
+    { "ar": "4 مخارج للتوصيل", "en": "4 Output Ports" },
+    { "ar": "استقبال إشارة قوي", "en": "Strong Signal Reception" },
+    { "ar": "مناسب للمنازل والشركات", "en": "Suitable for Homes and Businesses" },
+    { "ar": "سهولة التركيب", "en": "Easy Installation" }
+  ],
+  "rating": 4.5,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:26:34Z"
+},
+
+{
+  "id": "lnb-televes-8port-04",
+  "name": {
+    "ar": "LNB تيليفيس 8 مخارج",
+    "en": "Televes LNB 8 PORT"
+  },
+  "price": 450,
+  "category": "lnb",
+  "subcategory": "8-port",
+  "brand": "Televes",
+  "image": "/products/00000195-PHOTO-2026-01-28-10-28-11.jpg",
+  "images": [
+    "/products/00000195-PHOTO-2026-01-28-10-28-11.jpg",
+    "/products/00000196-PHOTO-2026-01-28-10-28-11.jpg"
+  ],
+  "description": {
+    "ar": "وحدة LNB تيليفيس الاسبانية الاحترافية بـ 8 مخارج لتوصيل أجهزة متعددة.",
+    "en": "Professional Spanish Televes LNB with 8 output ports for multiple device connections."
+  },
+  "features": [
+    { "ar": "ماركة تيليفيس الاسبانية", "en": "Spanish Televes Brand" },
+    { "ar": "8 مخارج للتوصيل", "en": "8 Output Ports" },
+    { "ar": "جودة استقبال احترافية", "en": "Professional Reception Quality" },
+    { "ar": "مناسب للفنادق والشركات", "en": "Suitable for Hotels and Businesses" }
+  ],
+  "rating": 4.8,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:28:11Z"
+},
+
+{
+  "id": "remote-timer-receiver-01",
+  "name": {
+    "ar": "ريموت رسيفر تايمر ضد الكسر",
+    "en": "Timer Receiver Remote (Shockproof)"
+  },
+  "price": 50,
+  "category": "remotes",
+  "subcategory": "receiver",
+  "brand": "Timer",
+  "image": "/products/00000200-PHOTO-2026-01-28-10-30-10.jpg",
+  "images": [
+    "/products/00000200-PHOTO-2026-01-28-10-30-10.jpg"
+  ],
+  "description": {
+    "ar": "ريموت كنترول للريسيفر ماركة تايمر، مصنوع من مواد ضد الكسر لمتانة أعلى.",
+    "en": "Timer brand receiver remote control, made with shockproof materials for higher durability."
+  },
+  "features": [
+    { "ar": "ضد الكسر", "en": "Shockproof Design" },
+    { "ar": "متوافق مع معظم الريسيفرات", "en": "Compatible with Most Receivers" },
+    { "ar": "أزرار مريحة", "en": "Comfortable Buttons" },
+    { "ar": "عمر افتراضي طويل", "en": "Long Lifespan" }
+  ],
+  "rating": 4.3,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:30:10Z"
+},
+
+{
+  "id": "remote-lm-receiver-02",
+  "name": {
+    "ar": "ريموت رسيفر LM",
+    "en": "LM Receiver Remote"
+  },
+  "price": 25,
+  "category": "remotes",
+  "subcategory": "receiver",
+  "brand": "LM",
+  "image": "/products/00000201-PHOTO-2026-01-28-10-31-08.jpg",
+  "images": [
+    "/products/00000201-PHOTO-2026-01-28-10-31-08.jpg"
+  ],
+  "description": {
+    "ar": "ريموت كنترول اقتصادي للريسيفر ماركة LM، يناسب الميزانيات المحدودة.",
+    "en": "Economic LM brand receiver remote control, suitable for limited budgets."
+  },
+  "features": [
+    { "ar": "سعر اقتصادي", "en": "Economic Price" },
+    { "ar": "متوافق مع معظم الريسيفرات", "en": "Compatible with Most Receivers" },
+    { "ar": "سهل الاستخدام", "en": "Easy to Use" }
+  ],
+  "rating": 4.0,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:31:08Z"
+},
+
+{
+  "id": "remote-lg-smart-screen-03",
+  "name": {
+    "ar": "ريموت شاشة LG سمارت",
+    "en": "LG Smart Screen Remote"
+  },
+  "price": 75,
+  "category": "remotes",
+  "subcategory": "screens",
+  "brand": "LG",
+  "image": "/products/00000202-PHOTO-2026-01-28-10-32-17.jpg",
+  "images": [
+    "/products/00000202-PHOTO-2026-01-28-10-32-17.jpg"
+  ],
+  "description": {
+    "ar": "ريموت بديل لشاشات LG الذكية، يدعم جميع وظائف الشاشة الأصلية.",
+    "en": "Replacement remote for LG Smart screens, supports all original screen functions."
+  },
+  "features": [
+    { "ar": "متوافق مع شاشات LG الذكية", "en": "Compatible with LG Smart TVs" },
+    { "ar": "يدعم جميع الوظائف", "en": "Supports All Functions" },
+    { "ar": "تصميم مريح", "en": "Ergonomic Design" },
+    { "ar": "سهل الإعداد", "en": "Easy Setup" }
+  ],
+  "rating": 4.5,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:32:17Z"
+},
+
+{
+  "id": "remote-samsung-screen-04",
+  "name": {
+    "ar": "ريموت شاشة سامسونج ضد الكسر",
+    "en": "Samsung Screen Remote (Shockproof)"
+  },
+  "price": 90,
+  "category": "remotes",
+  "subcategory": "screens",
+  "brand": "Samsung",
+  "image": "/products/00000203-PHOTO-2026-01-28-10-33-16.jpg",
+  "images": [
+    "/products/00000203-PHOTO-2026-01-28-10-33-16.jpg"
+  ],
+  "description": {
+    "ar": "ريموت بديل لشاشات سامسونج، مصنوع من مواد ضد الكسر لعمر أطول.",
+    "en": "Replacement remote for Samsung screens, made with shockproof materials for longer life."
+  },
+  "features": [
+    { "ar": "ضد الكسر", "en": "Shockproof Design" },
+    { "ar": "متوافق مع شاشات سامسونج", "en": "Compatible with Samsung TVs" },
+    { "ar": "يدعم جميع الوظائف", "en": "Supports All Functions" },
+    { "ar": "متانة عالية", "en": "High Durability" }
+  ],
+  "rating": 4.6,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:33:16Z"
+},
+
+{
+  "id": "dish-camex-70cm-01",
+  "name": {
+    "ar": "طبق دش Camex 70 سم",
+    "en": "Camex Satellite Dish 70cm"
+  },
+  "price": 315,
+  "category": "dishes",
+  "brand": "Camex",
+  "image": "/products/00000206-PHOTO-2026-01-28-10-36-38.jpg",
+  "images": [
+    "/products/00000206-PHOTO-2026-01-28-10-36-38.jpg"
+  ],
+  "description": {
+    "ar": "طبق دش Camex 70 سم عالي الجودة لاستقبال إشارة القنوات الفضائية بوضوح.",
+    "en": "High-quality Camex 70cm satellite dish for clear satellite channel reception."
+  },
+  "features": [
+    { "ar": "ماركة Camex", "en": "Camex Brand" },
+    { "ar": "قطر 70 سم", "en": "70cm Diameter" },
+    { "ar": "استقبال قوي للإشارة", "en": "Strong Signal Reception" },
+    { "ar": "مقاوم للعوامل الجوية", "en": "Weather Resistant" },
+    { "ar": "سهولة التركيب", "en": "Easy Installation" }
+  ],
+  "rating": 4.6,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:36:38Z"
+},
+
+{
+  "id": "dish-prefix-70cm-02",
+  "name": {
+    "ar": "طبق ستالايت Prefix 70 سم",
+    "en": "Prefix Satellite Dish 70cm"
+  },
+  "price": 325,
+  "category": "dishes",
+  "brand": "Prefix",
+  "image": "/products/00000207-PHOTO-2026-01-28-10-37-50.jpg",
+  "images": [
+    "/products/00000207-PHOTO-2026-01-28-10-37-50.jpg"
+  ],
+  "description": {
+    "ar": "طبق ستالايت Prefix 70 سم عالي الجودة لاستقبال إشارة القنوات الفضائية بوضوح.",
+    "en": "High-quality Prefix 70cm satellite dish for clear satellite channel reception."
+  },
+  "features": [
+    { "ar": "ماركة Prefix", "en": "Prefix Brand" },
+    { "ar": "قطر 70 سم", "en": "70cm Diameter" },
+    { "ar": "استقبال قوي للإشارة", "en": "Strong Signal Reception" },
+    { "ar": "مقاوم للعوامل الجوية", "en": "Weather Resistant" },
+    { "ar": "سهولة التركيب", "en": "Easy Installation" }
+  ],
+  "rating": 4.5,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:37:50Z"
+},
+
+{
+  "id": "dish-tiger-70cm-03",
+  "name": {
+    "ar": "طبق ستالايت Tiger 70 سم",
+    "en": "Tiger Satellite Dish 70cm"
+  },
+  "price": 300,
+  "category": "dishes",
+  "brand": "Tiger",
+  "image": "/products/00000208-PHOTO-2026-01-28-10-38-14.jpg",
+  "images": [
+    "/products/00000208-PHOTO-2026-01-28-10-38-14.jpg"
+  ],
+  "description": {
+    "ar": "طبق ستالايت Tiger 70 سم عالي الجودة لاستقبال إشارة القنوات الفضائية بوضوح.",
+    "en": "High-quality Tiger 70cm satellite dish for clear satellite channel reception."
+  },
+  "features": [
+    { "ar": "ماركة Tiger", "en": "Tiger Brand" },
+    { "ar": "قطر 70 سم", "en": "70cm Diameter" },
+    { "ar": "استقبال قوي للإشارة", "en": "Strong Signal Reception" },
+    { "ar": "مقاوم للعوامل الجوية", "en": "Weather Resistant" },
+    { "ar": "سهولة التركيب", "en": "Easy Installation" }
+  ],
+  "rating": 4.4,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:38:14Z"
+},
+
+{
+  "id": "dish-prifix-satellite-85cm-02",
+  "name": {
+    "ar": "طبق ستالايت بريفكس 85 سم",
+    "en": "Prifix Satellite Dish 85cm"
+  },
+  "price": 650,
+  "category": "dishes",
+  "brand": "Prifix",
+  "image": "/products/00000209-PHOTO-2026-01-28-10-38-46.jpg",
+  "images": [
+    "/products/00000209-PHOTO-2026-01-28-10-38-46.jpg"
+  ],
+  "description": {
+    "ar": "طبق ستالايت بريفكس 85 سم لاستقبال إشارة أقوى، مناسب للمناطق ذات الإشارة الضعيفة.",
+    "en": "Prifix 85cm satellite dish for stronger signal reception, suitable for areas with weak signals."
+  },
+  "features": [
+    { "ar": "ماركة بريفكس الأصلية", "en": "Original Prifix Brand" },
+    { "ar": "قطر 85 سم", "en": "85cm Diameter" },
+    { "ar": "استقبال إشارة أقوى", "en": "Stronger Signal Reception" },
+    { "ar": "مقاوم للعوامل الجوية", "en": "Weather Resistant" },
+    { "ar": "مناسب للمناطق البعيدة", "en": "Suitable for Remote Areas" }
+  ],
+  "rating": 4.7,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:38:46Z"
+},
+
+{
+  "id": "dish-prifix-satellite-100cm-03",
+  "name": {
+    "ar": "طبق ستالايت بريفكس 100 سم",
+    "en": "Prifix Satellite Dish 100cm"
+  },
+  "price": 900,
+  "category": "dishes",
+  "brand": "Prifix",
+  "image": "/products/00000210-PHOTO-2026-01-28-10-39-21.jpg",
+  "images": [
+    "/products/00000210-PHOTO-2026-01-28-10-39-21.jpg"
+  ],
+  "description": {
+    "ar": "طبق ستالايت بريفكس 100 سم الأكبر حجماً لاستقبال أقوى إشارة ممكنة، مثالي للاستخدام التجاري.",
+    "en": "Prifix 100cm satellite dish, the largest size for the strongest possible signal reception, ideal for commercial use."
+  },
+  "features": [
+    { "ar": "ماركة بريفكس الأصلية", "en": "Original Prifix Brand" },
+    { "ar": "قطر 100 سم", "en": "100cm Diameter" },
+    { "ar": "أقوى استقبال للإشارة", "en": "Strongest Signal Reception" },
+    { "ar": "مقاوم للعوامل الجوية", "en": "Weather Resistant" },
+    { "ar": "مناسب للاستخدام التجاري", "en": "Suitable for Commercial Use" }
+  ],
+  "rating": 4.8,
+  "inStock": true,
+  "isOffer": false,
+  "createdAt": "2026-01-28T10:39:21Z"
+},
+{
+  "id": "rec-tiger-t800-pro-offer",
+  "name": {
+    "ar": "تايجر T800 برو - عرض خاص",
+    "en": "Tiger T800 Pro - Special Offer"
+  },
+  "price": 899,
+  "originalPrice": 1199,
+  "category": "receivers",
+  "brand": "Tiger",
+  "image": "/products/p-7.webp",
+  "images": ["/products/p-7.webp"],
+  "description": {
+    "ar": "رسيفر تايجر T800 برو الجديد بخصم 25%! يدعم 4K مع واي فاي مدمج واشتراكات IPTV لمدة سنة كاملة.",
+    "en": "New Tiger T800 Pro receiver with 25% discount! Supports 4K with built-in Wi-Fi and 1 year IPTV subscriptions."
+  },
+  "features": [
+    { "ar": "المعالج: Sunplus 2507L", "en": "Processor: Sunplus 2507L" },
+    { "ar": "الرام: 1 جيجا / الفلاش: 8 ميجا", "en": "Ram: 1GB / Flash: 8MB" },
+    { "ar": "واي فاي مدمج", "en": "Built-in Wi-Fi" },
+    { "ar": "يدعم 4K Ultra HD", "en": "4K Ultra HD Support" },
+    { "ar": "منفذين USB", "en": "2x USB Ports" },
+    { "ar": "اشتراك Forever IPTV 12 شهر", "en": "12 Months Forever IPTV" },
+    { "ar": "اشتراك Nashare 12 شهر", "en": "12 Months Nashare" },
+    { "ar": "ضمان سنة كاملة", "en": "1 Year Warranty" }
+  ],
+  "rating": 4.7,
+  "inStock": true,
+  "isOffer": true,
+  "offerEndsAt": "2026-02-15T23:59:59Z",
+  "createdAt": "2026-01-28T20:10:00Z"
 }
 ]

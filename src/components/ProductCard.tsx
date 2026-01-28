@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +11,7 @@ import {
   BarChart2,
   Sparkles,
   Zap,
+  Clock,
 } from "lucide-react";
 import { Product } from "../types";
 import {
@@ -24,9 +25,13 @@ import LazyImage from "./LazyImage";
 
 interface Props {
   product: Product;
+  showOfferDetails?: boolean; // When true, shows countdown timer for offers
 }
 
-const ProductCard: React.FC<Props> = ({ product }) => {
+const ProductCard: React.FC<Props> = ({
+  product,
+  showOfferDetails = false,
+}) => {
   const { t, i18n } = useTranslation();
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
@@ -65,6 +70,40 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         ((product.originalPrice - product.price) / product.originalPrice) * 100,
       )
     : 0;
+
+  // Countdown timer state for offer mode
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    expired: false,
+  });
+
+  useEffect(() => {
+    if (!showOfferDetails || !product.offerEndsAt) return;
+
+    const calculateTimeLeft = () => {
+      const difference = +new Date(product.offerEndsAt!) - +new Date();
+      if (difference > 0) {
+        return {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+          expired: false,
+        };
+      }
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+    };
+
+    setTimeLeft(calculateTimeLeft());
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showOfferDetails, product.offerEndsAt]);
 
   // Action button variants for staggered animation
   const actionButtonVariants = {
@@ -154,7 +193,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full w-fit"
                 style={{
                   background:
                     "linear-gradient(135deg, #DAA520 0%, #FF8C00 100%)",
@@ -355,6 +394,85 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             </span>
           </div>
         </div>
+
+        {/* Offer Countdown Timer - Only shown when showOfferDetails is true */}
+        {showOfferDetails && product.isOffer && (
+          <div
+            className={`mt-3 p-3 rounded-xl ${
+              isDark ? "bg-secondary/10" : "bg-secondary/5"
+            } border ${isDark ? "border-secondary/20" : "border-secondary/15"}`}
+          >
+            {product.offerEndsAt && !timeLeft.expired ? (
+              <>
+                <div
+                  className={`text-[10px] uppercase tracking-widest mb-2 flex items-center gap-1.5 justify-center ${
+                    isDark ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
+                  <Clock size={10} className="text-secondary" />
+                  {t("offer_ends_in") || "Ends in"}
+                </div>
+                <div className="flex items-center justify-center gap-1.5">
+                  {[
+                    { value: timeLeft.days, label: t("days_short") || "d" },
+                    { value: timeLeft.hours, label: t("hours_short") || "h" },
+                    {
+                      value: timeLeft.minutes,
+                      label: t("minutes_short") || "m",
+                    },
+                    {
+                      value: timeLeft.seconds,
+                      label: t("seconds_short") || "s",
+                    },
+                  ].map((block, idx) => (
+                    <React.Fragment key={block.label}>
+                      <div className="flex flex-col items-center">
+                        <div
+                          className={`text-sm font-black tabular-nums px-2 py-1 rounded-md min-w-8 text-center ${
+                            isDark
+                              ? "bg-secondary/20 text-secondary"
+                              : "bg-secondary/15 text-secondary"
+                          }`}
+                        >
+                          {String(block.value).padStart(2, "0")}
+                        </div>
+                        <span
+                          className={`text-[8px] uppercase mt-0.5 ${
+                            isDark ? "text-gray-500" : "text-gray-400"
+                          }`}
+                        >
+                          {block.label}
+                        </span>
+                      </div>
+                      {idx < 3 && (
+                        <span className="text-secondary font-bold text-sm mb-3">
+                          :
+                        </span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </>
+            ) : product.offerEndsAt && timeLeft.expired ? (
+              <div className="text-red-500 text-xs font-bold flex items-center justify-center gap-2">
+                <Clock size={12} />
+                {t("expired") || "Expired"}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-2 py-1">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span
+                  className={`text-xs font-medium ${isDark ? "text-green-400" : "text-green-600"}`}
+                >
+                  {t("ongoing_offer") || "Ongoing Offer"}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Price & Add to Cart */}
         <div
