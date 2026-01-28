@@ -18,6 +18,8 @@ import {
   Star,
   CreditCard,
   Sparkles,
+  Flame,
+  Timer,
 } from "lucide-react";
 import LazyImage from "../components/LazyImage";
 import { getCategoryInfo } from "../data/categoryConfig";
@@ -87,6 +89,12 @@ const Home: React.FC = () => {
   const featuredProducts = products
     .filter((p) => p.isOffer || p.rating > 4.5)
     .slice(0, 4);
+
+  // Filter products with active offers
+  const offerProducts = useMemo(
+    () => products.filter((p) => p.isOffer),
+    [products],
+  );
 
   // Extract unique categories from products dynamically
   const categories = useMemo(
@@ -374,6 +382,68 @@ const Home: React.FC = () => {
           ))}
         </div>
       </section>
+
+      {/* Special Offers Section */}
+      {offerProducts.length > 0 && (
+        <section className="container mx-auto px-4">
+          <div className="bg-linear-to-br from-secondary/10 via-surface/30 to-primary/10 backdrop-blur-sm border border-border rounded-[2.5rem] p-8 md:p-12 mb-10 shadow-lg relative overflow-hidden group">
+            {/* Decorative Background */}
+            <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+              <Flame size={200} />
+            </div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-xs font-bold uppercase tracking-widest mb-4">
+                  <Timer size={14} className="animate-pulse" />
+                  {i18n.language === "ar" ? "عروض محدودة" : "Limited Time"}
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-text tracking-tight">
+                  {i18n.language === "ar" ? "العروض المميزة" : "Special Offers"}
+                </h2>
+                <p className="text-subtext mt-2">
+                  {i18n.language === "ar"
+                    ? "اغتنم الفرصة قبل انتهاء العرض"
+                    : "Grab these deals before they're gone"}
+                </p>
+              </div>
+              <Link
+                to="/offers"
+                className="group inline-flex items-center gap-3 bg-secondary text-white font-bold py-4 px-8 rounded-2xl hover:bg-secondary/80 hover:shadow-xl hover:shadow-secondary/20 transition-all transform hover:-translate-y-1"
+              >
+                {i18n.language === "ar" ? "عرض كل العروض" : "View All Offers"}
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {offerProducts.slice(0, 4).map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                showOfferDetails={true}
+              />
+            ))}
+          </div>
+
+          {/* Show more link if there are more than 4 offers */}
+          {offerProducts.length > 4 && (
+            <div className="text-center mt-8">
+              <Link
+                to="/offers"
+                className="inline-flex items-center gap-2 text-secondary font-bold hover:gap-4 transition-all"
+              >
+                {i18n.language === "ar"
+                  ? `عرض ${offerProducts.length - 4} عروض أخرى`
+                  : `View ${offerProducts.length - 4} more offers`}
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 };
