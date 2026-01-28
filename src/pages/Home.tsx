@@ -45,7 +45,7 @@ const OffersBar: React.FC = () => {
       desc: t("book_technician_desc"),
       icon: <Wrench size={24} />,
       color: "bg-green-600/10 text-green-600",
-      link: "/installers",
+      link: "/branches",
     },
   ];
 
