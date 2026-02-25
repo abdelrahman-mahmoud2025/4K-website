@@ -1,7 +1,7 @@
 {
-  "name": "4K Store - فور كيه ستور",
-  "short_name": "4K Store",
-  "description": "متجر متخصص في رسيفرات الستالايت وسيرفرات IPTV - زياد شوقي",
+  "name": "C2Z Store - فور كيه ستور",
+  "short_name": "C2Z Store",
+  "description": "متجر متخصص في رسيفرات الستالايت - C2Z",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

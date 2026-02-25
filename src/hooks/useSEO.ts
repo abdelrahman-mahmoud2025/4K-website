@@ -19,9 +19,9 @@ interface SEOProps {
   };
 }
 
-const SITE_NAME = '4K Store - فور كيه ستور';
-const DEFAULT_DESCRIPTION = '4K Store - فور كيه ستور - زياد شوقي. متجر متخصص في رسيفرات 4K، نوفا، تايجر، سيناتور، ستارسات، أيكون. سيرفرات Forever، G-Share، Nashare، IPTV. أفضل الأسعار في مصر.';
-const BASE_URL = 'https://4kstore.com';
+const SITE_NAME = 'C2Z Store - سي تو زد ستور';
+const DEFAULT_DESCRIPTION = 'C2Z Store - سي تو زد ستور. متجر متخصص في رسيفرات 4K، نوفا، تايجر، سيناتور، ستارسات، أيكون. سيرفرات Forever، G-Share، Nashare، IPTV. أفضل الأسعار في مصر.';
+const BASE_URL = 'https://c2zstore.com';
 
 /**
  * Custom hook for managing SEO meta tags dynamically
@@ -99,7 +99,7 @@ export const useSEO = ({
         image: product.image ? (product.image.startsWith('http') ? product.image : `${BASE_URL}${product.image}`) : fullImage,
         brand: {
           '@type': 'Brand',
-          name: product.brand || '4K Store'
+          name: product.brand || 'C2Z Store'
         },
         sku: product.sku,
         offers: {

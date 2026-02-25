@@ -5,7 +5,7 @@ export const allPages: SearchablePage[] = [
     id: 'home',
     title: { en: 'Home', ar: 'الرئيسية' },
     path: '/',
-    description: { en: 'Main page of 4K Store', ar: 'الصفحة الرئيسية لمتجر 4K' }
+    description: { en: 'Main page of C2Z Store', ar: 'الصفحة الرئيسية لمتجر C2Z' }
   },
   {
     id: 'shop',
@@ -53,7 +53,7 @@ export const allPages: SearchablePage[] = [
     id: 'about',
     title: { en: 'About Us', ar: 'من نحن' },
     path: '/about',
-    description: { en: 'Learn more about 4K Store', ar: 'تعرف أكثر على متجر 4K' }
+    description: { en: 'Learn more about C2Z Store', ar: 'تعرف أكثر على متجر C2Z' }
   },
   {
     id: 'refund-terms',

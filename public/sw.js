@@ -1,8 +1,8 @@
-// 4K Store Service Worker
+// C2Z Store Service Worker
 // Handles caching and offline functionality with smart updates
 
-const CACHE_NAME = '4k-store-v1';
-const DATA_CACHE_NAME = '4k-store-data-v1';
+const CACHE_NAME = 'C2Z-store-v1';
+const DATA_CACHE_NAME = 'C2Z-store-data-v1';
 
 // Assets to cache on install
 const STATIC_ASSETS = [

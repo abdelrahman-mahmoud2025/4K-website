@@ -110,8 +110,8 @@ const Home: React.FC = () => {
         : "Home - Best Satellite Receivers & IPTV Servers in Egypt",
     description:
       i18n.language === "ar"
-        ? "4K Store - فور كيه ستور - زياد شوقي. متجر متخصص في رسيفرات 4K، نوفا، تايجر، سيناتور، ستارسات. سيرفرات Forever، IPTV. أفضل الأسعار في مصر مع ضمان وشحن سريع."
-        : "4K Store - Zyad Shawky. Specialized store for 4K receivers, Nova, Tiger, Senator, Starsat. Forever servers, IPTV. Best prices in Egypt with warranty and fast shipping.",
+        ? "C2Z Store - سي تو زد ستور. متجر متخصص في رسيفرات 4K، نوفا، تايجر، سيناتور، ستارسات. سيرفرات Forever، IPTV. أفضل الأسعار في مصر مع ضمان وشحن سريع."
+        : "C2Z Store. Specialized store for 4K receivers, Nova, Tiger, Senator, Starsat. Forever servers, IPTV. Best prices in Egypt with warranty and fast shipping.",
   });
 
   if (loading)

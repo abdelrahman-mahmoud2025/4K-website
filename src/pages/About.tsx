@@ -26,12 +26,12 @@ const About: React.FC = () => {
   useSEO({
     title:
       i18n.language === "ar"
-        ? "من نحن - تعرف على 4K Store وزياد شوقي"
-        : "About Us - Learn About 4K Store & Zyad Shawky",
+        ? "من نحن - تعرف على C2Z Store"
+        : "About Us - Learn About C2Z Store",
     description:
       i18n.language === "ar"
-        ? "4K Store - فور كيه ستور - متجر زياد شوقي للستالايت. تعرف على قصتنا، فروعنا في مصر، وتواصل معنا عبر الهاتف أو السوشيال ميديا."
-        : "4K Store - Zyad Shawky Satellite Store. Learn about our story, branches across Egypt, and contact us via phone or social media.",
+        ? "C2Z Store - سي تو زد ستور المتخصص في الستالايت. تعرف على قصتنا، فروعنا في مصر، وتواصل معنا عبر الهاتف أو السوشيال ميديا."
+        : "C2Z Store - Satellite Store. Learn about our story, branches across Egypt, and contact us via phone or social media.",
   });
 
   return (

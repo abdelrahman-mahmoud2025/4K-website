@@ -16,44 +16,59 @@ const Footer: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer dir="ltr" className="bg-surface border-t border-border pt-16 mt-auto transition-colors duration-300">
+    <footer
+      dir="ltr"
+      className="bg-surface border-t border-border pt-16 mt-auto transition-colors duration-300"
+    >
       <div className="container mx-auto px-4 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          
           {/* Brand & Contact */}
           <div className="md:col-span-1 space-y-6">
             <div>
               <h3 className="text-2xl font-bold text-text mb-4 tracking-tight">
-                4K<span className="text-primary">STORE</span>
+                C2Z<span className="text-primary">STORE</span>
               </h3>
               <p className="text-subtext text-sm leading-relaxed">
                 {t("footer_about")}
               </p>
             </div>
-            
+
             <div className="space-y-3 text-subtext text-sm">
               <p className="flex items-center gap-3 hover:text-text transition-colors">
-                <Phone size={16} className="text-primary shrink-0" /> 
+                <Phone size={16} className="text-primary shrink-0" />
                 <span dir="ltr">+201277697483</span>
               </p>
               <p className="flex items-center gap-3 hover:text-text transition-colors">
-                <Mail size={16} className="text-primary shrink-0" /> 
-                support@4kstore.com
+                <Mail size={16} className="text-primary shrink-0" />
+                support@c2zstore.com
               </p>
               <p className="flex items-start gap-3 hover:text-text transition-colors">
-                <MapPin size={16} className="text-primary shrink-0 mt-1" /> 
-                <span>123 Satellite St, Downtown,<br />Cairo, Egypt</span>
+                <MapPin size={16} className="text-primary shrink-0 mt-1" />
+                <span>
+                  123 Satellite St, Downtown,
+                  <br />
+                  Cairo, Egypt
+                </span>
               </p>
             </div>
 
             <div className="flex gap-3">
-              <a href="#" className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-blue-600 transition-all">
+              <a
+                href="#"
+                className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-blue-600 transition-all"
+              >
                 <Facebook size={18} />
               </a>
-              <a href="#" className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-pink-600 transition-all">
+              <a
+                href="#"
+                className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-pink-600 transition-all"
+              >
                 <Instagram size={18} />
               </a>
-              <a href="#" className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-green-500 transition-all">
+              <a
+                href="#"
+                className="bg-background p-2.5 rounded-full text-subtext hover:text-white hover:bg-green-500 transition-all"
+              >
                 <MessageCircle size={18} />
               </a>
             </div>
@@ -61,9 +76,7 @@ const Footer: React.FC = () => {
 
           {/* Shop Links */}
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold text-text mb-6">
-              {t("shop")}
-            </h3>
+            <h3 className="text-lg font-bold text-text mb-6">{t("shop")}</h3>
             <div className="space-y-3 text-subtext text-sm">
               {[
                 { to: "/shop", label: "view_all_products" },
@@ -84,9 +97,7 @@ const Footer: React.FC = () => {
 
           {/* Tools & Services */}
           <div className="md:col-span-1">
-            <h3 className="text-lg font-bold text-text mb-6">
-              {t("tools")}
-            </h3>
+            <h3 className="text-lg font-bold text-text mb-6">{t("tools")}</h3>
             <div className="space-y-3 text-subtext text-sm">
               {[
                 { to: "/patcher", label: "patcher" },
@@ -131,7 +142,10 @@ const Footer: React.FC = () => {
             <Link to="/about" className="hover:text-text transition-colors">
               {t("about_me")}
             </Link>
-            <Link to="/refund-terms" className="hover:text-text transition-colors">
+            <Link
+              to="/refund-terms"
+              className="hover:text-text transition-colors"
+            >
               {t("refund_terms")}
             </Link>
           </div>

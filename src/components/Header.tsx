@@ -291,7 +291,7 @@ const Header = () => {
             to="/"
             className="text-2xl font-bold text-primary flex items-center gap-1 italic tracking-tighter hover:opacity-90"
           >
-            <span className="text-text">4K</span>
+            <span className="text-text">C2Z</span>
             <span>STORE</span>
           </Link>
 
@@ -539,7 +539,7 @@ const Header = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="text-xl font-bold text-primary italic"
                   >
-                    <span className="text-text">4K</span>
+                    <span className="text-text">C2Z</span>
                     <span>STORE</span>
                   </Link>
                   <button onClick={() => setIsMenuOpen(false)}>

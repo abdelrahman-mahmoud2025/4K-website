@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Pages -->
   <url>
-    <loc>https://4kstore.com/</loc>
+    <loc>https://code2z-store-template.netlify.app/</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/shop</loc>
+    <loc>https://code2z-store-template.netlify.app/shop</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/offers</loc>
+    <loc>https://code2z-store-template.netlify.app/offers</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -22,61 +22,61 @@
   
   <!-- Product Pages -->
   <url>
-    <loc>https://4kstore.com/product/rec-1</loc>
+    <loc>https://code2z-store-template.netlify.app/product/rec-1</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/rec-2</loc>
+    <loc>https://code2z-store-template.netlify.app/product/rec-2</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/rec-3</loc>
+    <loc>https://code2z-store-template.netlify.app/product/rec-3</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/rec-4</loc>
+    <loc>https://code2z-store-template.netlify.app/product/rec-4</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/rec-5</loc>
+    <loc>https://code2z-store-template.netlify.app/product/rec-5</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/srv-1</loc>
+    <loc>https://code2z-store-template.netlify.app/product/srv-1</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/srv-2</loc>
+    <loc>https://code2z-store-template.netlify.app/product/srv-2</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/iptv-1</loc>
+    <loc>https://code2z-store-template.netlify.app/product/iptv-1</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/acc-1</loc>
+    <loc>https://code2z-store-template.netlify.app/product/acc-1</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/product/cab-1</loc>
+    <loc>https://code2z-store-template.netlify.app/product/cab-1</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -84,49 +84,49 @@
   
   <!-- Other Pages -->
   <url>
-    <loc>https://4kstore.com/feeds</loc>
+    <loc>https://code2z-store-template.netlify.app/feeds</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/downloads</loc>
+    <loc>https://code2z-store-template.netlify.app/downloads</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/installers</loc>
+    <loc>https://code2z-store-template.netlify.app/installers</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/patcher</loc>
+    <loc>https://code2z-store-template.netlify.app/patcher</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/bundle</loc>
+    <loc>https://code2z-store-template.netlify.app/bundle</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/about</loc>
+    <loc>https://code2z-store-template.netlify.app/about</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/refund-terms</loc>
+    <loc>https://code2z-store-template.netlify.app/refund-terms</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://4kstore.com/maintenance</loc>
+    <loc>https://code2z-store-template.netlify.app/maintenance</loc>
     <lastmod>2026-01-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

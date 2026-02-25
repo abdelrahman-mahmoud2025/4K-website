@@ -1,11 +1,11 @@
-# 4K Store - Robots.txt
-# https://4kstore.com
+# C2Z Store - Robots.txt
+# https://c2zstore.com
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://4kstore.com/sitemap.xml
+Sitemap: https://c2zstore.com/sitemap.xml
 
 # Crawl-delay (optional - for rate limiting)
 Crawl-delay: 1

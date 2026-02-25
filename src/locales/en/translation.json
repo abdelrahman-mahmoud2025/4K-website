@@ -107,12 +107,12 @@
     "submit": "Submit Request via WhatsApp"
   },
   "about_page": {
-    "title": "About 4K Store",
+    "title": "About C2Z Store",
     "content": "We are the leading store in satellite technology and digital systems in Egypt. Established in 2020 to provide the latest receivers (4K/8K), global server subscriptions, and professional installation gear.\n\nWe pride ourselves on real after-sales support and immediate replacement warranty against manufacturing defects. Our team consists of professional engineers and technicians ready to serve you 24/7."
   },
   "refund_page": {
     "title": "Refund & Warranty Policy",
-    "intro": "At 4K Store, customer satisfaction is our priority. Here are our refund terms:",
+    "intro": "At C2Z Store, customer satisfaction is our priority. Here are our refund terms:",
     "terms": [
       "Return Period: You can return products within 14 days of purchase if there is a manufacturing defect.",
       "Condition: The product must be in its original condition with all accessories and packaging intact.",
@@ -134,9 +134,9 @@
     "accessories": "Accessories",
     "cables": "Cables"
   },
-  "footer_about": "4K Store is your #1 destination for satellite equipment in Egypt and MENA.",
+  "footer_about": "C2Z Store is your #1 destination for satellite equipment in Egypt and MENA.",
   "contact_us": "Contact Us",
-  "rights_reserved": "All Rights Reserved © 2026 4K Store",
+  "rights_reserved": "All Rights Reserved © 2026 C2Z Store",
   "checkout": "Checkout",
   "cart_empty": "Your cart is empty",
   "total": "Total",
@@ -260,7 +260,7 @@
   },
   "last_updated": "Last Updated:",
   "device_placeholder": "e.g., Nova Receiver, 100cm Dish",
-  "app_title": "4K Store | Satellite & IPTV",
+  "app_title": "C2Z Store | Satellite & IPTV",
   "product": "Product",
   "action": "Action",
   "rating": "Rating",
