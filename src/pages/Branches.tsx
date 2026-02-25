@@ -57,7 +57,7 @@ const Branches: React.FC = () => {
     📅 *التاريخ المفضل:* ${formData.date}
     ⏰ *الوقت المفضل:* ${formData.time}`;
 
-    const phoneNumber = "+201090969040";
+    const phoneNumber = "+201277697483";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };

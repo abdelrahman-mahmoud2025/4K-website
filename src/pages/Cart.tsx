@@ -46,7 +46,7 @@ const Cart: React.FC = () => {
   }
 
   const handleWhatsAppCheckout = () => {
-    const phoneNumber = "+201090969040";
+    const phoneNumber = "+201277697483";
     const itemList = items
       .map(
         (i) => `- ${i.name["en"]} x${i.quantity} (${i.price * i.quantity} EGP)`,
@@ -69,7 +69,7 @@ const Cart: React.FC = () => {
   };
 
   const handleAskOnly = () => {
-    const phoneNumber = "+201090969040";
+    const phoneNumber = "+201277697483";
     const itemList = items.map((i) => `- ${i.name["en"]}`).join("\n");
     const message = `اهلا, لدي استفسار حول هذه المنتجات في عربة التسوق:\n\n${itemList}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -305,7 +305,7 @@ const Cart: React.FC = () => {
                       </span>
                     </p>
                     <div className="bg-white dark:bg-black/20 text-black dark:text-white font-mono text-xl p-3 rounded-xl text-center font-bold tracking-wider select-all border border-border">
-                      010 1234 5678
+                      201277697483
                     </div>
                     <div className="text-xs text-subtext text-center">
                       {t("supported_wallets")}
