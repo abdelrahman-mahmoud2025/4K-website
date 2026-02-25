@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
             <div className="space-y-3 text-subtext text-sm">
               <p className="flex items-center gap-3 hover:text-text transition-colors">
                 <Phone size={16} className="text-primary shrink-0" /> 
-                <span dir="ltr">+20 109 096 9040</span>
+                <span dir="ltr">+201277697483</span>
               </p>
               <p className="flex items-center gap-3 hover:text-text transition-colors">
                 <Mail size={16} className="text-primary shrink-0" /> 
